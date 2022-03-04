@@ -51,11 +51,11 @@ public class Queue {
     }
 
     /**
-     * Adds a "1" or a "0" to the first position of the uuid as a String.
+     * The uuid as a String.
      *
      * @param p Player
      *
-     * @return formatted String that has information about priority
+     * @return uuid as String
      */
     public String nameNotationForQueue(Player p){
         return p.getUniqueId().toString();
@@ -97,22 +97,61 @@ public class Queue {
         return Bukkit.getServer().getOnlinePlayers().size();
     }
 
-    
-    public boolean canJoin(Player p , PlayerJoinEvent e ){
-        int maxPlayers = Bukkit.getServer().getMaxPlayers();
+    public boolean canJoin(Player p, PlayerJoinEvent e){
 
-        if( onlinePlayersNumber() + getReservedSlots() == maxPlayers ){
-            if(p.hasPermission(TelepostPermissions.reservedSlots)){
-                e.setJoinMessage("You have joined to a reserved slot!");
-                return true;
+        // Checks if there is any room for a player, whether reserved slot or not
+        if(!hasEnoughRoom(p)){
+            return false;
+        }
+
+        // Checks if there's anyone on the queue
+        if(!queue.isEmpty()){
+            return false;
+        }
+
+        if(!isOnQueue(p)){
+            if(queue.isEmpty()){
+
+
+            }else{
+                addToQueue(p);
             }
+        }else{
 
         }
-        return false;
+
+        //
+        return true;
+
+    }
+
+    public void tryToJoinBeingFirst(Player p){
+        if(queue.inde)
+    }
+
+    
+    public boolean hasEnoughRoom( Player p ){
+        int maxPlayers = Bukkit.getServer().getMaxPlayers();
+
+        if(p.hasPermission(TelepostPermissions.reservedSlots)){
+            return !(onlinePlayersNumber() + getUsedReservedSlots() >= maxPlayers);
+        }else{
+            return !(onlinePlayersNumber() + getReservedSlots() >= maxPlayers);
+        }
 
     }
     public Integer getReservedSlots(){
         return BasicQueue.getConfig().getInt("reserved-slots");
+    }
+
+    public Integer getUsedReservedSlots(){
+        int i=0;
+        for(Player p : Bukkit.getServer().getOnlinePlayers()){
+            if(p.hasPermission(TelepostPermissions.reservedSlots)){
+                i++;
+            }
+        }
+        return i;
     }
     public String kickMessageToQueue(Player p){
         String s = null;
@@ -143,5 +182,8 @@ public class Queue {
             }
         },20*(queueCooldown*60));
 
+    }
+    public boolean isOnQueue(Player p){
+        return queue.containsKey(p.getUniqueId().toString());
     }
 }
