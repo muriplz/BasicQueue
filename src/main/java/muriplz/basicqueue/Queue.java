@@ -5,14 +5,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Queue {
 
-    HashMap<String,Integer> queue = muriplz.basicqueue.BasicQueue.queue;
+    List<String> queue = muriplz.basicqueue.BasicQueue.queue;
     public static Queue instance;
     public BasicQueue BasicQueue;
 
@@ -36,45 +35,18 @@ public class Queue {
      */
     public Integer getPriorityQueue(){
         int i = 1;
-        for(Map.Entry<String, Integer> entry : queue.entrySet()) {
-            String uuid = entry.getKey();
-            Integer queuePos = entry.getValue();
+        for(String uuid : queue) {
 
             Player p = Bukkit.getServer().getPlayer(uuid);
             if(p==null) break;
 
-            if(!p.hasPermission(TelepostPermissions.queuePriority)){
+            if(!hasPriority(p)){
                 break;
             }
         }
         return i;
     }
 
-    /**
-     * The uuid as a String.
-     *
-     * @param p Player
-     *
-     * @return uuid as String
-     */
-    public String nameNotationForQueue(Player p){
-        return p.getUniqueId().toString();
-    }
-
-    /**
-     * Kicks player with custom kick message.
-     *
-     * @param p Player
-     *
-     * @return 1 or a 0, it being Priority and Non-priority respectively
-     */
-    public Integer getPriority(Player p){
-        if(hasPriority(p)){
-            return 1;
-        }else{
-            return 0;
-        }
-    }
 
     /**
      * Gets information about the player's priority permission.
@@ -97,7 +69,7 @@ public class Queue {
         return Bukkit.getServer().getOnlinePlayers().size();
     }
 
-    public boolean canJoin(Player p, PlayerJoinEvent e){
+    public boolean canJoinAndJoinQueue(Player p, PlayerJoinEvent e){
 
         // Checks if there is any room for a player, whether reserved slot or not
         if(!hasEnoughRoom(p)){
@@ -110,24 +82,19 @@ public class Queue {
         }
 
         if(!isOnQueue(p)){
-            if(queue.isEmpty()){
-
-
-            }else{
-                addToQueue(p);
-            }
+            addToQueue(p);
         }else{
+            String uuid = queue.get(0);
+
+            // Checks if the player is on the first position of the queue
+            return p.getUniqueId().toString().equals(uuid);
 
         }
 
-        //
         return true;
 
     }
 
-    public void tryToJoinBeingFirst(Player p){
-        if(queue.inde)
-    }
 
     
     public boolean hasEnoughRoom( Player p ){
@@ -150,12 +117,15 @@ public class Queue {
             if(p.hasPermission(TelepostPermissions.reservedSlots)){
                 i++;
             }
+            if(i==getReservedSlots()){
+                break;
+            }
         }
         return i;
     }
     public String kickMessageToQueue(Player p){
         String s = null;
-        if(!queue.containsKey(p.getUniqueId().toString())){
+        if(!isOnQueue(p)){
             s = "The server is full, therefore you have been placed in the queue.\n";
         }
         s = s + "You are in the position: ";
@@ -163,9 +133,10 @@ public class Queue {
     }
     public void addToQueue(Player p) {
         if( hasPriority(p) ){
-            queue.put( nameNotationForQueue(p) , getPriority(p) );
+            queue.add( getPriorityQueue() - 1 ,p.getUniqueId().toString() );
         }
-        queue.put( nameNotationForQueue(p) , getPriority(p) );
+
+        queue.add( getQueue() - 1 , p.getUniqueId().toString() );
         deleteFromQueueCooldown(p);
     }
     public void deleteFromQueueCooldown(Player p){
@@ -184,6 +155,6 @@ public class Queue {
 
     }
     public boolean isOnQueue(Player p){
-        return queue.containsKey(p.getUniqueId().toString());
+        return queue.contains(p.getUniqueId().toString());
     }
 }

@@ -7,11 +7,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BasicQueue extends JavaPlugin{
 
-    public static HashMap<String,Integer> queue = new HashMap<>();
+    public static List<String> queue = new ArrayList<>();
     public static BasicQueue instance;
 
     PluginDescriptionFile pdffile = getDescription();
