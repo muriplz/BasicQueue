@@ -1,7 +1,7 @@
-package muriplz.telepost;
+package muriplz.basicqueue;
 
 import io.github.thatsmusic99.configurationmaster.CMFile;
-import muriplz.telepost.listeners.onPlayerJoin;
+import muriplz.basicqueue.listeners.onPlayerJoin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;

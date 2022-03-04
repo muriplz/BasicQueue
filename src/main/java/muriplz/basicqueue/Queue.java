@@ -1,6 +1,6 @@
-package muriplz.telepost;
+package muriplz.basicqueue;
 
-import muriplz.telepost.permissions.TelepostPermissions;
+import muriplz.basicqueue.permissions.TelepostPermissions;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Queue {
 
-    HashMap<String,Integer> queue = muriplz.telepost.BasicQueue.queue;
+    HashMap<String,Integer> queue = muriplz.basicqueue.BasicQueue.queue;
     public static Queue instance;
     public BasicQueue BasicQueue;
 

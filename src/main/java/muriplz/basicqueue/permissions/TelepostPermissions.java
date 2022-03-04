@@ -1,4 +1,4 @@
-package muriplz.telepost.permissions;
+package muriplz.basicqueue.permissions;
 
 public class TelepostPermissions {
     static String pre = "queue.";

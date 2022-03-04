@@ -1,6 +1,6 @@
-package muriplz.telepost.listeners;
+package muriplz.basicqueue.listeners;
 
-import muriplz.telepost.Queue;
+import muriplz.basicqueue.Queue;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class onPlayerJoin implements Listener {
 
-    private final Queue Queue = muriplz.telepost.Queue.getInstance();
+    private final Queue Queue = muriplz.basicqueue.Queue.getInstance();
 
     @EventHandler
     public void onJoin( PlayerJoinEvent e ){
