@@ -7,6 +7,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Queue {
 
@@ -56,7 +58,7 @@ public class Queue {
      * @return formatted String that has information about priority
      */
     public String nameNotationForQueue(Player p){
-        return getPriority(p) + p.getUniqueId().toString();
+        return p.getUniqueId().toString();
     }
 
     /**
@@ -64,13 +66,13 @@ public class Queue {
      *
      * @param p Player
      *
-     * @return "1" or a "0", it being Priority and Non-priority respectively
+     * @return 1 or a 0, it being Priority and Non-priority respectively
      */
-    public String getPriority(Player p){
+    public Integer getPriority(Player p){
         if(hasPriority(p)){
-            return "1";
+            return 1;
         }else{
-            return "0";
+            return 0;
         }
     }
 
@@ -122,10 +124,24 @@ public class Queue {
     }
     public void addToQueue(Player p) {
         if( hasPriority(p) ){
-            queue.put( nameNotationForQueue(p) , getPriorityQueue() );
+            queue.put( nameNotationForQueue(p) , getPriority(p) );
         }
-        queue.put( nameNotationForQueue(p) , getQueue() );
+        queue.put( nameNotationForQueue(p) , getPriority(p) );
+        deleteFromQueueCooldown(p);
     }
+    public void deleteFromQueueCooldown(Player p){
 
+        long queueCooldown = BasicQueue.getConfig().getLong("queue-cooldown");
 
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                queue.remove(p.getUniqueId().toString());
+                timer.cancel();
+            }
+        },20*(queueCooldown*60));
+
+    }
 }

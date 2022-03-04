@@ -51,6 +51,9 @@ public class BasicQueue extends JavaPlugin{
                 addComment("Number of reserved slots. Only people with permission queue.reservedslot can join when the number of reserved slots is the same as the number of current available slots");
                 addDefault("reserved-slots","2");
 
+                addComment("The cooldown in minutes to kick a player from the queue.");
+                addDefault("queue-cooldown","5");
+
             }
 
         };
