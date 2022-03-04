@@ -18,9 +18,20 @@ public class Queue {
         return instance;
     }
 
+    /**
+     * Gets the queue slot a new player joining should be in.
+     *
+     * @return the queue slot
+     */
     public Integer getQueue(){
         return queue.size() + 1;
     }
+
+    /**
+     * Gets the queue slot a new player joining with priority should be in.
+     *
+     * @return the queue slot
+     */
     public Integer getPriorityQueue(){
         int i = 1;
         for(Map.Entry<String, Integer> entry : queue.entrySet()) {
@@ -36,23 +47,55 @@ public class Queue {
         }
         return i;
     }
+
+    /**
+     * Adds a "1" or a "0" to the first position of the uuid as a String.
+     *
+     * @param p Player
+     *
+     * @return formatted String that has information about priority
+     */
     public String nameNotationForQueue(Player p){
         return getPriority(p) + p.getUniqueId().toString();
     }
+
+    /**
+     * Kicks player with custom kick message.
+     *
+     * @param p Player
+     *
+     * @return "1" or a "0", it being Priority and Non-priority respectively
+     */
     public String getPriority(Player p){
-        if(isPriority(p)){
+        if(hasPriority(p)){
             return "1";
         }else{
             return "0";
         }
     }
-    public boolean isPriority(Player p){
+
+    /**
+     * Gets information about the player's priority permission.
+     *
+     * @param p Player
+     *
+     * @return turns true if the player has priority permission
+     */
+    public boolean hasPriority(Player p){
         return p.hasPermission(TelepostPermissions.queuePriority);
     }
 
+    /**
+     * Gets information about online players that have permission
+     * to reserved slots
+     *
+     * @return the amount of online players that do not have access to reserved slots
+     */
     public Integer onlinePlayersNumber(){
         return Bukkit.getServer().getOnlinePlayers().size();
     }
+
+    
     public boolean canJoin(Player p , PlayerJoinEvent e ){
         int maxPlayers = Bukkit.getServer().getMaxPlayers();
 
@@ -71,14 +114,14 @@ public class Queue {
     }
     public String kickMessageToQueue(Player p){
         String s = null;
-        if(!queue.containsKey(p.getName())){
+        if(!queue.containsKey(p.getUniqueId().toString())){
             s = "The server is full, therefore you have been placed in the queue.\n";
         }
         s = s + "You are in the position: ";
         return s;
     }
     public void addToQueue(Player p) {
-        if( isPriority(p) ){
+        if( hasPriority(p) ){
             queue.put( nameNotationForQueue(p) , getPriorityQueue() );
         }
         queue.put( nameNotationForQueue(p) , getQueue() );
