@@ -38,7 +38,7 @@ public class BasicQueue extends JavaPlugin{
         Bukkit.getConsoleSender().sendMessage(name+ChatColor.WHITE+" The plugin has been deactivated.");
     }
 
-    public BasicQueue getInstance(){
+    public static BasicQueue getInstance(){
         return instance;
     }
 
