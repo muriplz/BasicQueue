@@ -1,5 +1,6 @@
 package muriplz.basicqueue.queue;
 
+import muriplz.basicqueue.BasicQueue;
 import muriplz.basicqueue.permissions.BasicQueuePermissions;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -8,9 +9,9 @@ import java.util.List;
 
 public class Queue {
 
-    List<String> queue = muriplz.basicqueue.BasicQueue.queue;
-    public static Queue instance;
-    public muriplz.basicqueue.BasicQueue BasicQueue;
+    List<String> queue = BasicQueue.queue;
+    public static Queue instance = new Queue();
+
 
     public static Queue getInstance() {
         return instance;
@@ -71,7 +72,7 @@ public class Queue {
     }
 
     public Integer getReservedSlots(){
-        return BasicQueue.getConfig().getInt("reserved-slots");
+        return BasicQueue.getInstance().getConfig().getInt("reserved-slots");
     }
 
     public Integer getUsedReservedSlots(){

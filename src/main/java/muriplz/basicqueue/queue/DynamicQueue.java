@@ -12,27 +12,31 @@ import java.util.TimerTask;
 
 public class DynamicQueue {
 
-    List<String> queue = muriplz.basicqueue.BasicQueue.queue;
+    List<String> queue = BasicQueue.queue;
     Queue Queue = muriplz.basicqueue.queue.Queue.getInstance();
-    public static DynamicQueue instance;
+    public static DynamicQueue instance = new DynamicQueue();
 
     public static DynamicQueue getInstance(){
         return instance;
     }
     public void addToQueue(Player p) {
+
         if(queue.contains(p.getUniqueId().toString())){
             return;
         }
+
         if( Queue.hasPriority(p) ){
             queue.add( Queue.getPriorityQueue() - 1 ,p.getUniqueId().toString() );
+
+        }else{
+            queue.add( Queue.getQueue() - 1 , p.getUniqueId().toString() );
         }
 
-        queue.add( Queue.getQueue() - 1 , p.getUniqueId().toString() );
         deleteFromQueueCooldown(p);
     }
     public void deleteFromQueueCooldown(Player p){
 
-        long queueCooldown = BasicQueue.getInstance().getConfig().getLong("queue-cooldown");
+        int queueCooldown = BasicQueue.getInstance().getConfig().getInt("queue-cooldown");
 
         final Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -40,9 +44,10 @@ public class DynamicQueue {
             public void run() {
 
                 queue.remove(p.getUniqueId().toString());
+                p.sendMessage("You have been taken out of queue");
                 timer.cancel();
             }
-        },20*(queueCooldown*60));
+        }, 20L *queueCooldown*60);
 
     }
 

@@ -3,3 +3,6 @@ name: BasicQueue
 version: 0.1
 api-version: 1.18
 author: muriplz
+commands:
+  addtoqueue:
+    description: adds to queue

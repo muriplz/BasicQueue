@@ -2,6 +2,8 @@ package muriplz.basicqueue;
 
 import io.github.thatsmusic99.configurationmaster.CMFile;
 import muriplz.basicqueue.listeners.onPlayerJoin;
+import muriplz.basicqueue.listeners.test;
+import muriplz.basicqueue.listeners.testCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -9,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BasicQueue extends JavaPlugin{
 
@@ -22,12 +25,15 @@ public class BasicQueue extends JavaPlugin{
 
     @Override
     public void onEnable(){
-        queue = null;
+        queue = new ArrayList<>();
         instance = this;
 
         loadConfig();
 
         Bukkit.getServer().getPluginManager().registerEvents(new onPlayerJoin(),this);
+        Bukkit.getServer().getPluginManager().registerEvents(new test(),this);
+        Objects.requireNonNull(getCommand("addtoqueue")).setExecutor(new testCommand());
+
 
         // Plugin activated at this point
         Bukkit.getConsoleSender().sendMessage(name+ChatColor.GRAY+" The plugin has been activated. Version: "+ChatColor.GREEN+version);
@@ -49,7 +55,8 @@ public class BasicQueue extends JavaPlugin{
                 addLink("Github","https://github.com/muriplz/BasicQueue" );
                 addLink("Spigot", "none yet" );
 
-                addComment("Number of reserved slots. Only people with permission queue.reservedslot can join when the number of reserved slots is the same as the number of current available slots");
+                addComment("Number of reserved slots. Only people with permission queue.reservedslot can join");
+                addComment("when the number of reserved slots is the same as the number of current available slots");
                 addDefault("reserved-slots","2");
 
                 addComment("The cooldown in minutes to kick a player from the queue.");
