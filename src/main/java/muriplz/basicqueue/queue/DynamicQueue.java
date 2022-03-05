@@ -4,6 +4,7 @@ import muriplz.basicqueue.BasicQueue;
 import muriplz.basicqueue.permissions.BasicQueuePermissions;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.List;
 import java.util.Timer;
@@ -44,7 +45,13 @@ public class DynamicQueue {
         },20*(queueCooldown*60));
 
     }
-    public boolean canJoinAndJoinQueue(Player p){
+
+    public boolean canJoinAndJoinQueue(Player p, PlayerJoinEvent e){
+
+        if(Queue.getUsedReservedSlots() < Queue.getReservedSlots() && Queue.hasReservedPermission(p)){
+            e.setJoinMessage("You have joined to a reserved slot!");
+            return true;
+        }
 
 
         // Checks if there's anyone on the queue

@@ -66,6 +66,9 @@ public class Queue {
         return Bukkit.getServer().getOnlinePlayers().size();
     }
 
+    public boolean hasReservedPermission(Player p){
+        return p.hasPermission(BasicQueuePermissions.reservedSlots);
+    }
 
     public Integer getReservedSlots(){
         return BasicQueue.getConfig().getInt("reserved-slots");
