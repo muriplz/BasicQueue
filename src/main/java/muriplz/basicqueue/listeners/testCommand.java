@@ -1,9 +1,6 @@
 package muriplz.basicqueue.listeners;
 
-import muriplz.basicqueue.BasicQueue;
 import muriplz.basicqueue.queue.DynamicQueue;
-import muriplz.basicqueue.queue.Queue;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
