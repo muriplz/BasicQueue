@@ -15,7 +15,6 @@ public class onPlayerJoin implements Listener {
     public void onJoin( PlayerJoinEvent e ){
         Player p = e.getPlayer();
 
-
         if(!Queue.canJoinAndJoinQueue(p,e)){
             p.kickPlayer(Queue.kickMessageToQueue(p));
         }

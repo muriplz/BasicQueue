@@ -1,20 +1,18 @@
 package muriplz.basicqueue.queue;
 
 import muriplz.basicqueue.BasicQueue;
-import muriplz.basicqueue.permissions.BasicQueuePermissions;
+import muriplz.basicqueue.reservedslots.ReservedSlots;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class DynamicQueue {
 
     List<String> queue = BasicQueue.queue;
-    Queue Queue = muriplz.basicqueue.queue.Queue.getInstance();
-    public static DynamicQueue instance = new DynamicQueue();
+    public static DynamicQueue instance;
 
     public static DynamicQueue getInstance(){
         return instance;
@@ -36,28 +34,28 @@ public class DynamicQueue {
     }
     public void deleteFromQueueCooldown(Player p){
 
-        int queueCooldown = BasicQueue.getInstance().getConfig().getInt("queue-cooldown");
 
-        final Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        long timeInSeconds = Queue.QUEUE_COOLDOWN * 60L;
+        long timeInTicks = 20 * timeInSeconds;
+
+        new BukkitRunnable() {
+
             @Override
             public void run() {
-
                 queue.remove(p.getUniqueId().toString());
-                p.sendMessage("You have been taken out of queue");
-                timer.cancel();
             }
-        }, 20L *queueCooldown*60);
+        }.runTaskLater(BasicQueue.getInstance(), timeInTicks);
+
+
 
     }
 
     public boolean canJoinAndJoinQueue(Player p, PlayerJoinEvent e){
 
-        if(Queue.getUsedReservedSlots() < Queue.getReservedSlots() && Queue.hasReservedPermission(p)){
+        if(! (ReservedSlots.getUsedReservedSlots() < ReservedSlots.RESERVED_SLOTS ) && ReservedSlots.hasReservedPermission(p) && leftNonReservedSlots()==0){
             e.setJoinMessage("You have joined to a reserved slot!");
             return true;
         }
-
 
         // Checks if there's anyone on the queue
         if(!queue.isEmpty()){
@@ -88,13 +86,10 @@ public class DynamicQueue {
 
     public boolean hasEnoughRoom( Player p ){
         int maxPlayers = Bukkit.getServer().getMaxPlayers();
-
-        if(p.hasPermission(BasicQueuePermissions.reservedSlots)){
-            return !(Queue.onlinePlayersNumber() + Queue.getUsedReservedSlots() >= maxPlayers);
-        }else{
-            return !(Queue.onlinePlayersNumber() + Queue.getReservedSlots() >= maxPlayers);
-        }
-
+        return !(Queue.onlinePlayersNumber() + ReservedSlots.RESERVED_SLOTS >= maxPlayers);
+    }
+    public Integer leftNonReservedSlots(){
+        return Bukkit.getServer().getMaxPlayers() - Queue.onlinePlayersNumber() - ReservedSlots.RESERVED_SLOTS;
     }
     public String kickMessageToQueue(Player p){
         String s = null;

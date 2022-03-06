@@ -8,9 +8,10 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class Queue {
+    public static final int QUEUE_COOLDOWN = 2;
 
-    List<String> queue = BasicQueue.queue;
-    public static Queue instance = new Queue();
+    static List<String> queue = BasicQueue.queue;
+    public static Queue instance;
 
 
     public static Queue getInstance() {
@@ -22,7 +23,7 @@ public class Queue {
      *
      * @return the queue slot
      */
-    public Integer getQueue(){
+    public static int getQueue(){
         return queue.size() + 1;
     }
 
@@ -31,16 +32,16 @@ public class Queue {
      *
      * @return the queue slot
      */
-    public Integer getPriorityQueue(){
+    public static int getPriorityQueue(){
         int i = 1;
         for(String uuid : queue) {
 
             Player p = Bukkit.getServer().getPlayer(uuid);
-            if(p==null) break;
 
             if(!hasPriority(p)){
                 break;
             }
+            i++;
         }
         return i;
     }
@@ -53,7 +54,7 @@ public class Queue {
      *
      * @return turns true if the player has priority permission
      */
-    public boolean hasPriority(Player p){
+    public static boolean hasPriority(Player p){
         return p.hasPermission(BasicQueuePermissions.queuePriority);
     }
 
@@ -63,33 +64,20 @@ public class Queue {
      *
      * @return the amount of online players that do not have access to reserved slots
      */
-    public Integer onlinePlayersNumber(){
-        return Bukkit.getServer().getOnlinePlayers().size();
-    }
-
-    public boolean hasReservedPermission(Player p){
-        return p.hasPermission(BasicQueuePermissions.reservedSlots);
-    }
-
-    public Integer getReservedSlots(){
-        return BasicQueue.getInstance().getConfig().getInt("reserved-slots");
-    }
-
-    public Integer getUsedReservedSlots(){
+    public static int onlinePlayersNumber(){
         int i=0;
         for(Player p : Bukkit.getServer().getOnlinePlayers()){
-            if(p.hasPermission(BasicQueuePermissions.reservedSlots)){
+            if(!p.hasPermission(BasicQueuePermissions.reservedSlots)){
                 i++;
-            }
-            if(i==getReservedSlots()){
-                break;
             }
         }
         return i;
     }
 
 
-    public boolean isOnQueue(Player p){
+
+
+    public static boolean isOnQueue(Player p){
         return queue.contains(p.getUniqueId().toString());
     }
 }
