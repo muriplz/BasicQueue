@@ -8,15 +8,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class onPlayerJoin implements Listener {
 
-    private final DynamicQueue Queue = DynamicQueue.getInstance();
-
 
     @EventHandler
     public void onJoin( PlayerJoinEvent e ){
         Player p = e.getPlayer();
 
-        if(!Queue.canJoinAndJoinQueue(p,e)){
-            p.kickPlayer(Queue.kickMessageToQueue(p));
+        if(!DynamicQueue.canJoinAndJoinQueue(p,e)){
+            p.kickPlayer(DynamicQueue.kickMessageToQueue(p));
         }
 
     }

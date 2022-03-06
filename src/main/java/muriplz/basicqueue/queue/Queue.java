@@ -11,12 +11,7 @@ public class Queue {
     public static final int QUEUE_COOLDOWN = 2;
 
     static List<String> queue = BasicQueue.queue;
-    public static Queue instance;
 
-
-    public static Queue getInstance() {
-        return instance;
-    }
 
     /**
      * Gets the queue slot a new player joining should be in.
@@ -38,7 +33,7 @@ public class Queue {
 
             Player p = Bukkit.getServer().getPlayer(uuid);
 
-            if(!hasPriority(p)){
+            if(!QueuePlayer.getPlayer(p).hasPriority()){
                 break;
             }
             i++;
@@ -54,9 +49,7 @@ public class Queue {
      *
      * @return turns true if the player has priority permission
      */
-    public static boolean hasPriority(Player p){
-        return p.hasPermission(BasicQueuePermissions.queuePriority);
-    }
+
 
     /**
      * Gets information about online players that have permission

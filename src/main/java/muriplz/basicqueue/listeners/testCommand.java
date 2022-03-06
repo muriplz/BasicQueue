@@ -14,7 +14,7 @@ public class testCommand implements CommandExecutor {
             return false;
         }else {
             Player player = (Player) sender;
-            DynamicQueue.getInstance().addToQueue(player);
+            DynamicQueue.addToQueue(player);
             return true;
     }
 

@@ -11,28 +11,10 @@ import java.util.List;
 
 public class DynamicQueue {
 
-    List<String> queue = BasicQueue.queue;
-    public static DynamicQueue instance;
+    static List<String> queue = BasicQueue.queue;
 
-    public static DynamicQueue getInstance(){
-        return instance;
-    }
-    public void addToQueue(Player p) {
 
-        if(queue.contains(p.getUniqueId().toString())){
-            return;
-        }
-
-        if( Queue.hasPriority(p) ){
-            queue.add( Queue.getPriorityQueue() - 1 ,p.getUniqueId().toString() );
-
-        }else{
-            queue.add( Queue.getQueue() - 1 , p.getUniqueId().toString() );
-        }
-
-        deleteFromQueueCooldown(p);
-    }
-    public void deleteFromQueueCooldown(Player p){
+    public static void deleteFromQueueCooldown(Player p){
 
 
         long timeInSeconds = Queue.QUEUE_COOLDOWN * 60L;
@@ -50,7 +32,7 @@ public class DynamicQueue {
 
     }
 
-    public boolean canJoinAndJoinQueue(Player p, PlayerJoinEvent e){
+    public static boolean canJoinAndJoinQueue(Player p, PlayerJoinEvent e){
 
         if(! (ReservedSlots.getUsedReservedSlots() < ReservedSlots.RESERVED_SLOTS ) && ReservedSlots.hasReservedPermission(p) && leftNonReservedSlots()==0){
             e.setJoinMessage("You have joined to a reserved slot!");
@@ -77,21 +59,21 @@ public class DynamicQueue {
 
     }
 
-    public boolean isFirst(Player p){
+    public static boolean isFirst(Player p){
         // Checks if the player is on the first position of the queue
         return p.getUniqueId().toString().equals(queue.get(0));
     }
 
 
 
-    public boolean hasEnoughRoom( Player p ){
+    public static boolean hasEnoughRoom(Player p){
         int maxPlayers = Bukkit.getServer().getMaxPlayers();
         return !(Queue.onlinePlayersNumber() + ReservedSlots.RESERVED_SLOTS >= maxPlayers);
     }
-    public Integer leftNonReservedSlots(){
+    public static Integer leftNonReservedSlots(){
         return Bukkit.getServer().getMaxPlayers() - Queue.onlinePlayersNumber() - ReservedSlots.RESERVED_SLOTS;
     }
-    public String kickMessageToQueue(Player p){
+    public static String kickMessageToQueue(Player p){
         String s = null;
         if(!Queue.isOnQueue(p)){
             s = "The server is full, therefore you have been placed in the queue.\n";
