@@ -1,76 +1,53 @@
 package muriplz.basicqueue.queue;
 
-import muriplz.basicqueue.BasicQueue;
-import muriplz.basicqueue.permissions.BasicQueuePermissions;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Queue {
-    public static final int QUEUE_COOLDOWN = 2;
+    public static Long cooldown = 5000L;
+    public static LinkedHashMap<Player,Long> queue;
 
-    static List<String> queue = BasicQueue.queue;
-
-
-    /**
-     * Gets the queue slot a new player joining should be in.
-     *
-     * @return the queue slot
-     */
-    public static int getQueue(){
-        return queue.size() + 1;
+    public static int size(){
+        return queue.size();
     }
-
-    /**
-     * Gets the queue slot a new player joining with priority should be in.
-     *
-     * @return the queue slot
-     */
-    public static int getPriorityQueue(){
-        int i = 1;
-        for(String uuid : queue) {
-
-            Player p = Bukkit.getServer().getPlayer(uuid);
-
-            if(!QueuePlayer.getPlayer(p).hasPriority()){
+    public static Player whoFirst(){
+        return queue.entrySet().iterator().next().getKey();
+    }
+    public static void add(Player p){
+        if(!queue.containsKey(p)){
+            queue.put(p,cooldown);
+        }
+    }
+    public static boolean hasPlayer(Player p){
+        return queue.containsKey(p);
+    }
+    public static boolean isEmpty(){
+        return queue.isEmpty();
+    }
+    public static boolean hasRoomInsideServer(){
+        return Bukkit.getMaxPlayers()>Bukkit.getOnlinePlayers().size();
+    }
+    public void delete(Player p){
+        for(Player q : queue.keySet()){
+            if(q.equals(p)){
+                queue.remove(p);
+            }
+        }
+    }
+    public static int getPos(Player p){
+        if(!queue.containsKey(p)){
+            return 0;
+        }
+        int i=0;
+        for(Player q : queue.keySet()){
+            i++;
+            if(p.equals(q)){
                 break;
             }
-            i++;
         }
         return i;
-    }
-
-
-    /**
-     * Gets information about the player's priority permission.
-     *
-     * @param p Player
-     *
-     * @return turns true if the player has priority permission
-     */
-
-
-    /**
-     * Gets information about online players that have permission
-     * to reserved slots
-     *
-     * @return the amount of online players that do not have access to reserved slots
-     */
-    public static int onlinePlayersNumber(){
-        int i=0;
-        for(Player p : Bukkit.getServer().getOnlinePlayers()){
-            if(!p.hasPermission(BasicQueuePermissions.reservedSlots)){
-                i++;
-            }
-        }
-        return i;
-    }
-
-
-
-
-    public static boolean isOnQueue(Player p){
-        return queue.contains(p.getUniqueId().toString());
     }
 }

@@ -1,6 +1,7 @@
 package muriplz.basicqueue.listeners;
 
-import muriplz.basicqueue.queue.DynamicQueue;
+import muriplz.basicqueue.queue.Queue;
+import muriplz.basicqueue.queue.QueuePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,9 +14,27 @@ public class onPlayerJoin implements Listener {
     public void onJoin( PlayerJoinEvent e ){
         Player p = e.getPlayer();
 
-        if(!DynamicQueue.canJoinAndJoinQueue(p,e)){
-            p.kickPlayer(DynamicQueue.kickMessageToQueue(p));
+        if(!Queue.isEmpty()){
+            if(Queue.hasRoomInsideServer()){
+                if(!Queue.whoFirst().equals(p)){
+                    p.kickPlayer("you are not first");
+                }else{
+                    //joins
+                }
+            }else{
+                if(!Queue.hasPlayer(p)){
+                    QueuePlayer queuePlayer = new QueuePlayer(p);
+                }
+
+            }
+        }else{
+            if(Queue.hasRoomInsideServer()){
+                //joins
+            }else{
+
+            }
         }
+
 
     }
 
