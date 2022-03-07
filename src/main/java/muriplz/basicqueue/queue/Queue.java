@@ -30,7 +30,7 @@ public class Queue {
     public static boolean hasRoomInsideServer(){
         return Bukkit.getMaxPlayers()>Bukkit.getOnlinePlayers().size();
     }
-    public void delete(Player p){
+    public static void delete(Player p){
         for(Player q : queue.keySet()){
             if(q.equals(p)){
                 queue.remove(p);

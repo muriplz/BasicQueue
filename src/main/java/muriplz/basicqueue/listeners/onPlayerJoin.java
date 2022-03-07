@@ -20,18 +20,22 @@ public class onPlayerJoin implements Listener {
                     p.kickPlayer("you are not first");
                 }else{
                     //joins
+                    Queue.delete(p);
                 }
             }else{
                 if(!Queue.hasPlayer(p)){
-                    QueuePlayer queuePlayer = new QueuePlayer(p);
+                    new QueuePlayer(p);
+                    p.kickPlayer("you are added to queue");
                 }
 
             }
         }else{
             if(Queue.hasRoomInsideServer()){
                 //joins
+                Queue.delete(p);
             }else{
-
+                new QueuePlayer(p);
+                p.kickPlayer("you are added to queue2");
             }
         }
 

@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class QueuePlayer {
 
-    private Player p;
+    private final Player p;
 
    public QueuePlayer(Player p){
        this.p = p;
