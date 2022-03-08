@@ -9,7 +9,7 @@ public class test implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e){
-        int size = Queue.getQueue() - 1;
+        int size = Queue.size();
         String s = "Queue size: "+ size;
         e.getPlayer().sendMessage(s);
     }

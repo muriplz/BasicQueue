@@ -1,5 +1,6 @@
 package muriplz.basicqueue.listeners;
 
+import muriplz.basicqueue.queue.Queue;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,7 +14,7 @@ public class testCommand implements CommandExecutor {
             return false;
         }else {
             Player player = (Player) sender;
-            DynamicQueue.addToQueue(player);
+            Queue.add(player);
             return true;
     }
 
