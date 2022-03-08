@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Queue {
     public static Long cooldownOnSeconds = 60L;
@@ -18,6 +19,13 @@ public class Queue {
     public static void add(Player p){
         if(!queue.containsKey(p)){
             queue.put(p,cooldownOnSeconds);
+        }
+    }
+    public static void resetCooldown(Player p){
+        for(Map.Entry<Player,Long> q : queue.entrySet()){
+            if(q.getKey().equals(p)){
+                queue.replace(p,cooldownOnSeconds);
+            }
         }
     }
     public static boolean hasPlayer(Player p){

@@ -17,8 +17,10 @@ public class onPlayerJoin implements Listener {
             if(Queue.hasRoomInsideServer()){
                 if(!Queue.whoFirst().equals(p)){
                     p.kickPlayer("you are not first");
+                    Queue.resetCooldown(p);
+
                 }else{
-                    //joins
+                    //joins 
                     Queue.delete(p);
                 }
             }else{
