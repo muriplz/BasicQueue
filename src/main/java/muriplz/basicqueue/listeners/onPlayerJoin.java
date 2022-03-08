@@ -24,7 +24,7 @@ public class onPlayerJoin implements Listener {
                 }
             }else{
                 if(!Queue.hasPlayer(p)){
-                    new QueuePlayer(p);
+                    Queue.add(p);
                     p.kickPlayer("you are added to queue");
                 }
 
@@ -34,7 +34,7 @@ public class onPlayerJoin implements Listener {
                 //joins
                 Queue.delete(p);
             }else{
-                new QueuePlayer(p);
+                Queue.add(p);
                 p.kickPlayer("you are added to queue2");
             }
         }
