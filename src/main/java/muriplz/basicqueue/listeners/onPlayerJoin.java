@@ -20,7 +20,7 @@ public class onPlayerJoin implements Listener {
                     Queue.resetCooldown(p);
 
                 }else{
-                    //joins 
+                    //joins
                     Queue.delete(p);
                 }
             }else{

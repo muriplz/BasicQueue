@@ -1,6 +1,9 @@
 package muriplz.basicqueue;
 
 import io.github.thatsmusic99.configurationmaster.CMFile;
+import muriplz.basicqueue.listeners.onPlayerJoin;
+import muriplz.basicqueue.listeners.test;
+import muriplz.basicqueue.listeners.testCommand;
 import muriplz.basicqueue.queue.Queue;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,6 +32,10 @@ public class BasicQueue extends JavaPlugin{
 
         removeExceededPlayers();
         loadConfig();
+
+        getCommand("addtoqueue").setExecutor(new testCommand());
+        Bukkit.getServer().getPluginManager().registerEvents(new onPlayerJoin(),this);
+        Bukkit.getServer().getPluginManager().registerEvents(new test(),this);
 
         // Plugin activated at this point
         Bukkit.getConsoleSender().sendMessage(name+ChatColor.GRAY+" The plugin has been activated. Version: "+ChatColor.GREEN+version);
