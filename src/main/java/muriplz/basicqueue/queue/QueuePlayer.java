@@ -2,9 +2,6 @@ package muriplz.basicqueue.queue;
 
 import org.bukkit.entity.Player;
 
-import java.util.LinkedHashMap;
-import java.util.UUID;
-
 public class QueuePlayer {
 
     private final Player p;

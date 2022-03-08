@@ -3,11 +3,10 @@ package muriplz.basicqueue.queue;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class Queue {
-    public static Long cooldown = 5000L;
+    public static Long cooldownOnSeconds = 60L;
     public static LinkedHashMap<Player,Long> queue;
 
     public static int size(){
@@ -18,7 +17,7 @@ public class Queue {
     }
     public static void add(Player p){
         if(!queue.containsKey(p)){
-            queue.put(p,cooldown);
+            queue.put(p,cooldownOnSeconds);
         }
     }
     public static boolean hasPlayer(Player p){
@@ -50,4 +49,5 @@ public class Queue {
         }
         return i;
     }
+
 }

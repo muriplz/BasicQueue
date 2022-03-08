@@ -1,10 +1,18 @@
 package muriplz.basicqueue;
 
 import io.github.thatsmusic99.configurationmaster.CMFile;
+import muriplz.basicqueue.queue.Queue;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.Map;
+
+import static muriplz.basicqueue.queue.Queue.cooldownOnSeconds;
+import static muriplz.basicqueue.queue.Queue.queue;
 
 public class BasicQueue extends JavaPlugin{
 
@@ -19,6 +27,7 @@ public class BasicQueue extends JavaPlugin{
     public void onEnable(){
         instance = this;
 
+        removeExceededPlayers();
         loadConfig();
 
         // Plugin activated at this point
@@ -51,6 +60,24 @@ public class BasicQueue extends JavaPlugin{
 
         };
         myConfigFile.load();
+    }
+
+    private void removeExceededPlayers() {
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                // What you want to schedule goes here
+                long timeStampMustBeMore = System.currentTimeMillis() - (cooldownOnSeconds*1000);
+                for(Map.Entry<Player,Long> p: queue.entrySet()){
+                    if(p.getValue() < timeStampMustBeMore){
+                        Queue.delete(p.getKey());
+                    }
+                }
+            }
+
+        }.runTaskLater(this, 20);
     }
 
 }
