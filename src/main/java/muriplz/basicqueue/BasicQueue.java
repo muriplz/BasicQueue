@@ -12,12 +12,15 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static muriplz.basicqueue.queue.Queue.cooldownOnSeconds;
 import static muriplz.basicqueue.queue.Queue.queue;
 
 public class BasicQueue extends JavaPlugin{
+
+    public static LinkedHashMap<Player,Long> queue;
 
     public static BasicQueue instance;
 
@@ -30,12 +33,15 @@ public class BasicQueue extends JavaPlugin{
     public void onEnable(){
         instance = this;
 
-        removeExceededPlayers();
+        queue = new LinkedHashMap<>();
+
         loadConfig();
 
         getCommand("addtoqueue").setExecutor(new testCommand());
         Bukkit.getServer().getPluginManager().registerEvents(new onPlayerJoin(),this);
         Bukkit.getServer().getPluginManager().registerEvents(new test(),this);
+
+        removeExceededPlayers();
 
         // Plugin activated at this point
         Bukkit.getConsoleSender().sendMessage(name+ChatColor.GRAY+" The plugin has been activated. Version: "+ChatColor.GREEN+version);

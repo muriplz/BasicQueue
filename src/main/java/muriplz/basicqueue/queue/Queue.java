@@ -1,14 +1,17 @@
 package muriplz.basicqueue.queue;
 
+import muriplz.basicqueue.BasicQueue;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Queue {
+
+    public static LinkedHashMap<Player,Long> queue = BasicQueue.queue;
     public static Long cooldownOnSeconds = 60L;
-    public static LinkedHashMap<Player,Long> queue;
 
     public static int size(){
         return queue.size();
