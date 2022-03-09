@@ -1,5 +1,6 @@
 package muriplz.basicqueue.listeners;
 
+import muriplz.basicqueue.BasicQueue;
 import muriplz.basicqueue.queue.Queue;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,8 +16,8 @@ public class onPlayerJoin implements Listener {
 
         if(!Queue.isEmpty()){
             if(Queue.hasRoomInsideServer()){
-                if(!Queue.whoFirst().equals(p)){
-                    p.kickPlayer("you are not first");
+                if(!Queue.isFirst(p)){
+                    p.kickPlayer(BasicQueue.getMessage("not-first").replace("%POSITION%",Queue.getPos(p)+"").replace("%COOLDOWNMINUTES%",Queue.cooldownOnSeconds/60+""));
                     Queue.resetCooldown(p);
 
                 }else{
@@ -31,10 +32,7 @@ public class onPlayerJoin implements Listener {
 
             }
         }else{
-            if(Queue.hasRoomInsideServer()){
-                //joins
-                Queue.delete(p);
-            }else{
+            if(!Queue.hasRoomInsideServer()){
                 Queue.add(p);
                 p.kickPlayer("you are added to queue2");
             }

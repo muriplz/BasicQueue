@@ -6,3 +6,5 @@ author: muriplz
 commands:
   addtoqueue:
     description: adds to queue
+  deletefromqueue:
+    description: deletes from queue
