@@ -28,6 +28,9 @@ public class onPlayerJoin implements Listener {
                 if(!Queue.hasPlayer(p)){
                     Queue.add(p);
                     p.kickPlayer("you are added to queue");
+                }else{
+                    p.kickPlayer("wait");
+                    Queue.resetCooldown(p);
                 }
 
             }
