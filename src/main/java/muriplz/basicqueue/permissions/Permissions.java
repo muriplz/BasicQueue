@@ -1,7 +1,7 @@
 package muriplz.basicqueue.permissions;
 
-public class BasicQueuePermissions {
+public class Permissions {
     static String pre = "queue.";
-    public static String queuePriority = pre+"priorityqueue";
+    public static String queuePriority = pre+"priority";
     public static String reservedSlots = pre+"reservedslot";
 }

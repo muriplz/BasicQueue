@@ -1,33 +1,49 @@
 package muriplz.basicqueue.queue;
 
 import muriplz.basicqueue.BasicQueue;
+import muriplz.basicqueue.permissions.Permissions;
+import org.apache.commons.collections4.map.ListOrderedMap;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.LinkedHashMap;
 
 public class Queue {
 
-    public static LinkedHashMap<String,Long> queue = BasicQueue.queue;
+    public static ListOrderedMap<String,Long> queue = BasicQueue.queue;
 
-
-    // TODO: config getter not working
     public static int cooldownOnMinutes = BasicQueue.getInstance().getConfig().getInt("queue-cooldown");
-
-
 
     public static int size(){
         return queue.size();
     }
+    public static int prioritySize(){
+        int i=0;
+        do{
+            if(Queue.hasPriority(queue.get(i))){
+                i++;
+            }else{
+                break;
+            }
+        }while (i<queue.size());
+        return i;
+    }
     public static boolean isFirst(String uuid){
-        return uuid.equals(getFirst());
+        return uuid.equals(queue.firstKey());
     }
-    public static String getFirst(){
-        return queue.entrySet().iterator().next().getKey();
+    public static boolean hasPriority(String uuid){
+        Player p = Bukkit.getPlayer(uuid);
+        if(p==null) return false;
+        return p.hasPermission(Permissions.queuePriority);
     }
-
     public static void add(String uuid){
+        Long millis = System.currentTimeMillis();
         if(!queue.containsKey(uuid)){
-            queue.put(uuid,System.currentTimeMillis());
+            if(hasPriority(uuid)){
+                queue.put(prioritySize() + 1 , uuid , millis);
+            }else{
+                queue.put(uuid,millis);
+            }
         }
     }
     public static void resetCooldown(String uuid){

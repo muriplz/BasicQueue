@@ -2,9 +2,8 @@ package muriplz.basicqueue;
 
 import io.github.thatsmusic99.configurationmaster.CMFile;
 import muriplz.basicqueue.listeners.onPlayerJoin;
-import muriplz.basicqueue.listeners.testCommand;
-import muriplz.basicqueue.listeners.testCommand2;
 import muriplz.basicqueue.queue.Queue;
+import org.apache.commons.collections4.map.ListOrderedMap;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -14,14 +13,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static muriplz.basicqueue.queue.Queue.cooldownOnMinutes;
 
 public class BasicQueue extends JavaPlugin{
 
-    public static LinkedHashMap<String,Long> queue;
+    public static ListOrderedMap<String,Long> queue;
 
     private final String locale = getConfig().getString("locale");
 
@@ -38,13 +36,11 @@ public class BasicQueue extends JavaPlugin{
     @Override
     public void onEnable(){
         instance = this;
-        queue = new LinkedHashMap<>();
+        queue = new ListOrderedMap<>();
 
         loadConfig();
         loadMessages();
 
-        getCommand("addtoqueue").setExecutor(new testCommand());
-        getCommand("deletefromqueue").setExecutor(new testCommand2());
         Bukkit.getServer().getPluginManager().registerEvents(new onPlayerJoin(),this);
 
         removeExceededPlayers();

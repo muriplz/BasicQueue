@@ -20,9 +20,17 @@ repositories {
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
 
+    maven {
+        url = 'https://mvnrepository.com/artifact/org.apache.commons/commons-lang3'
+    }
+
     //Configuration Master
     maven {
         url = 'https://ci.pluginwiki.us/plugin/repository/everything/'
+    }
+
+    maven {
+        url = 'https://mvnrepository.com/artifact/org.apache.commons/commons-collections4'
     }
 }
 
@@ -31,6 +39,8 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     compileOnly 'org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT'
     implementation 'com.github.thatsmusic99:ConfigurationMaster:v1.0.3'
+    implementation 'org.apache.commons:commons-collections4:4.4'
+
 }
 
 test {
