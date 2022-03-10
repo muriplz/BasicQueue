@@ -41,9 +41,7 @@ public class BasicQueue extends JavaPlugin{
 
         loadConfig();
         loadMessages();
-
-        Bukkit.getConsoleSender().sendMessage(""+cooldownOnMinutes);
-
+        
         getCommand("addtoqueue").setExecutor(new testCommand());
         getCommand("deletefromqueue").setExecutor(new testCommand2());
         Bukkit.getServer().getPluginManager().registerEvents(new onPlayerJoin(),this);
