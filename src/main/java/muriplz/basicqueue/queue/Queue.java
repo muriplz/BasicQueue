@@ -19,12 +19,15 @@ public class Queue {
     }
     public static int prioritySize(){
         int i=0;
+        if(queue.isEmpty()){
+            return 0;
+        }
         do{
-            if(Queue.hasPriority(queue.get(i))){
-                i++;
-            }else{
+            if(!Queue.hasPriority(queue.get(i))){
                 break;
             }
+            i++;
+
         }while (i<queue.size());
         return i;
     }
