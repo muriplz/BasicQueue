@@ -11,6 +11,8 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
+import java.util.Objects;
+
 public class onPlayerJoin implements Listener {
 
 
@@ -27,33 +29,33 @@ public class onPlayerJoin implements Listener {
 
         if(e.getResult()== PlayerLoginEvent.Result.KICK_FULL){
             if(Queue.hasPlayer(uuid)){
-                e.setKickMessage("testing");
+                e.setKickMessage(Messages.get("default", uuid));
                 Queue.resetCooldown(uuid);
             }else{
-                e.setKickMessage("more testing");
+                e.setKickMessage(Messages.get("added", uuid));
                 Queue.add(uuid);
             }
-            
+
             return;
         }
 
         if(!Queue.isEmpty()){
             if(Queue.hasRoomInsideServer()){
                 if(!Queue.isFirst(uuid)){
-                    p.kickPlayer(Messages.get("not-first",uuid));
+                    p.kickPlayer(Messages.get("default",uuid));
                     Queue.resetCooldown(uuid);
 
                 }else{
                     //joins
                     Queue.delete(uuid);
-                    p.sendMessage("you joined!");
+                    p.sendMessage("you joined!, you were deleted from the queue");
                 }
             }else{
                 if(!Queue.hasPlayer(uuid)){
                     Queue.add(uuid);
-                    p.kickPlayer("you are added to queue");
+                    p.kickPlayer(Messages.get("added", uuid));
                 }else{
-                    p.kickPlayer("wait"+ Bukkit.getOnlinePlayers().size() + "---"+ Bukkit.getMaxPlayers());
+                    p.kickPlayer(Messages.get("default", uuid));
                     Queue.resetCooldown(uuid);
                 }
 
@@ -61,7 +63,7 @@ public class onPlayerJoin implements Listener {
         }else{
             if(!Queue.hasRoomInsideServer()){
                 Queue.add(uuid);
-                p.kickPlayer("you are added to queue, as the first person "+ Bukkit.getOnlinePlayers().size() + "---"+ Bukkit.getMaxPlayers());
+                p.kickPlayer(Messages.get("added", uuid));
             }
         }
 

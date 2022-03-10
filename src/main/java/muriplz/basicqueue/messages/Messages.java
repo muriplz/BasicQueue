@@ -5,9 +5,11 @@ import muriplz.basicqueue.queue.Queue;
 
 public class Messages {
     public static String get(String path, String uuid){
-        if(path.equals("not-first")){
-            return BasicQueue.getMessage("not-first").replace("%POSITION%", Queue.getPos(uuid)+"").replace("%COOLDOWNMINUTES%",Queue.cooldownOnSeconds/60+"");
+        if(path.equals("default")){
+            return BasicQueue.getMessage("default").replace("%POSITION%", Queue.getPos(uuid)+"").replace("%COOLDOWNMINUTES%",Queue.cooldownOnSeconds/60+"");
+        }else if(path.equals("added")){
+            return BasicQueue.getMessage("added").replace("%POSITION%", Queue.getPos(uuid)+"").replace("%COOLDOWNMINUTES%",Queue.cooldownOnSeconds/60+"");
         }
-        return null;
+        return "Error 32AE7Y";
     }
 }

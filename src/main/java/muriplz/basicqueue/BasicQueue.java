@@ -84,8 +84,9 @@ public class BasicQueue extends JavaPlugin{
                 addLink("Github","https://github.com/muriplz/BasicQueue" );
                 addLink("Spigot", "none yet" );
 
-                addDefault("not-first","You are inside the queue, and your position is &a%POSITION%&F.\nReconnect within %COOLDOWNMINUTES% minutes to keep your position");
-
+                addComment("Queue kick Messages");
+                addDefault("default","You are inside the queue, and your position is &a%POSITION%&f.\nReconnect within %COOLDOWNMINUTES% minutes to keep your position");
+                addDefault("added","You have been added to the queue, and your position is &a%POSITION%&f.\nReconnect within %COOLDOWNMINUTES% minutes to keep your position");
             }
 
         };
