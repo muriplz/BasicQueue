@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class Queue {
-
     public static ListOrderedMap<String,Long> queue = BasicQueue.queue;
 
     public static int cooldownOnMinutes = BasicQueue.getInstance().getConfig().getInt("queue-cooldown");
@@ -17,7 +16,7 @@ public class Queue {
     }
     public static int prioritySize(){
         int i=0;
-        if(queue.isEmpty()){
+        if(isEmpty()){
             return 0;
         }
         do{
@@ -63,7 +62,7 @@ public class Queue {
         queue.remove(uuid);
     }
     public static int getPos(String uuid){
-        if(!queue.containsKey(uuid)){
+        if(!queue.containsKey(uuid)||isEmpty()){
             return 0;
         }
         int i=0;
@@ -75,5 +74,4 @@ public class Queue {
         }
         return i;
     }
-
 }

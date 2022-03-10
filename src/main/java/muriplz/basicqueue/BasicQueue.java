@@ -27,11 +27,9 @@ public class BasicQueue extends JavaPlugin{
     public String name = ChatColor.YELLOW+"["+ChatColor.WHITE+pdffile.getName()+ChatColor.YELLOW+"]";
     public String version = pdffile.getVersion();
 
-
     public static BasicQueue instance;
 
     FileConfiguration config = this.getConfig();
-
 
     @Override
     public void onEnable(){
@@ -49,25 +47,19 @@ public class BasicQueue extends JavaPlugin{
         Bukkit.getConsoleSender().sendMessage(name+ChatColor.GRAY+" The plugin has been activated. Version: "+ChatColor.GREEN+version);
 
     }
-
     public void onDisable() {
         Bukkit.getConsoleSender().sendMessage(name+ChatColor.WHITE+" The plugin has been deactivated.");
     }
-
     private void loadConfig(){
         config.addDefault("queue-cooldown",3);
         config.addDefault("locale","en_en");
         config.options().copyDefaults(true);
         saveConfig();
     }
-
     private void loadMessages(){
         loadEnMessages();
         loadEsMessages();
     }
-
-
-
     public static YamlConfiguration getMessages(String locale){
         File messages = new File(getInstance().getDataFolder(), locale+".yml");
         return YamlConfiguration.loadConfiguration(messages);
@@ -79,11 +71,9 @@ public class BasicQueue extends JavaPlugin{
         }
         return ChatColor.translateAlternateColorCodes('&',s);
     }
-
     public static BasicQueue getInstance(){
         return instance;
     }
-
     private void removeExceededPlayers() {
 
         new BukkitRunnable() {
@@ -100,7 +90,6 @@ public class BasicQueue extends JavaPlugin{
             }
         }.runTaskTimer(this,cooldownOnMinutes*60*20L, 40);
     }
-
     private void loadEsMessages () {
         CMFile myMessagesFile = new CMFile(this, "es_es") {
             @Override
@@ -112,11 +101,9 @@ public class BasicQueue extends JavaPlugin{
                 addDefault("default","Estás dentro de la cola, tu posición es: &a%POSITION%&f.\nReconéctate en menos de %COOLDOWNMINUTES% minutos para conservar tu posición");
                 addDefault("added","Has sido añadido a la cola, tu posición es: &a%POSITION%&f.\nReconéctate en menos de %COOLDOWNMINUTES% minutos para conservar tu posición");
             }
-
         };
         myMessagesFile.load();
     }
-
     private void loadEnMessages () {
         CMFile myMessagesFile = new CMFile(this, "en_en") {
             @Override
@@ -128,9 +115,7 @@ public class BasicQueue extends JavaPlugin{
                 addDefault("default","You are inside the queue, and your position is: &a%POSITION%&f.\nReconnect within %COOLDOWNMINUTES% minutes to keep your position");
                 addDefault("added","You have been added to the queue, and your position is: &a%POSITION%&f.\nReconnect within %COOLDOWNMINUTES% minutes to keep your position");
             }
-
         };
         myMessagesFile.load();
     }
-
 }
