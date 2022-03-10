@@ -35,7 +35,6 @@ public class onPlayerJoin implements Listener {
                 Queue.add(uuid);
                 e.setKickMessage(Messages.get("added", uuid));
             }
-
             return;
         }
 

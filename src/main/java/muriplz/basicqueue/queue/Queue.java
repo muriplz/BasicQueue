@@ -13,7 +13,7 @@ public class Queue {
 
 
     // TODO: config getter not working
-    public static int cooldownOnSeconds = 180;
+    public static int cooldownOnMinutes = BasicQueue.getInstance().getConfig().getInt("queue-cooldown");
 
 
 
