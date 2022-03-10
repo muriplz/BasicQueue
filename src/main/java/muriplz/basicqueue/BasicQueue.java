@@ -29,6 +29,7 @@ public class BasicQueue extends JavaPlugin{
     public String name = ChatColor.YELLOW+"["+ChatColor.WHITE+pdffile.getName()+ChatColor.YELLOW+"]";
     public String version = pdffile.getVersion();
 
+
     public static BasicQueue instance;
 
     FileConfiguration config = this.getConfig();
@@ -41,7 +42,7 @@ public class BasicQueue extends JavaPlugin{
 
         loadConfig();
         loadMessages();
-        
+
         getCommand("addtoqueue").setExecutor(new testCommand());
         getCommand("deletefromqueue").setExecutor(new testCommand2());
         Bukkit.getServer().getPluginManager().registerEvents(new onPlayerJoin(),this);
@@ -64,28 +65,6 @@ public class BasicQueue extends JavaPlugin{
         saveConfig();
     }
 
-//    private void loadConfig () {
-//        CMFile myConfigFile = new CMFile(this, "config") {
-//            @Override
-//            public void loadDefaults() {
-//                addLink("Github","https://github.com/muriplz/BasicQueue" );
-//                addLink("Spigot", "none yet" );
-//
-//                addComment("Number of reserved slots. Only people with permission queue.reservedslot can join\nwhen the number of reserved slots is the same as the number of current available slots");
-//                addDefault("reserved-slots","0");
-//
-//                addComment("The cooldown in seconds to kick a player from the queue.");
-//                addDefault("queue-cooldown","180");
-//
-//                addComment("Select language (English: en_en, Spanish: es_es)");
-//                addDefault("locale","en_en");
-//
-//            }
-//
-//        };
-//        myConfigFile.load();
-//    }
-
     private void loadMessages(){
         loadEnMessages();
         loadEsMessages();
@@ -98,7 +77,11 @@ public class BasicQueue extends JavaPlugin{
         return YamlConfiguration.loadConfiguration(messages);
     }
     public static String getMessage(String path){
-        return ChatColor.translateAlternateColorCodes('&',getMessages(getInstance().locale).getString(path));
+        String s = getMessages(getInstance().locale).getString(path);
+        if (s==null){
+            return "Error 213Ej8 (file "+getInstance().locale+".yml not found)";
+        }
+        return ChatColor.translateAlternateColorCodes('&',s);
     }
 
     public static BasicQueue getInstance(){
