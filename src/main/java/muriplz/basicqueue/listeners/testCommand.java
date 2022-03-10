@@ -14,7 +14,7 @@ public class testCommand implements CommandExecutor {
             return false;
         }else {
             Player player = (Player) sender;
-            Queue.add(player);
+            Queue.add(player.getUniqueId().toString());
             return true;
     }
 

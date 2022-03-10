@@ -22,7 +22,7 @@ import static muriplz.basicqueue.queue.Queue.cooldownOnSeconds;
 
 public class BasicQueue extends JavaPlugin{
 
-    public static LinkedHashMap<Player,Long> queue;
+    public static LinkedHashMap<String,Long> queue;
 
     PluginDescriptionFile pdffile = getDescription();
     public String name = ChatColor.YELLOW+"["+ChatColor.WHITE+pdffile.getName()+ChatColor.YELLOW+"]";
@@ -39,7 +39,7 @@ public class BasicQueue extends JavaPlugin{
         loadConfig();
         loadMessages();
 
-        Bukkit.getConsoleSender().sendMessage(""+cooldownOnSeconds);
+        Bukkit.getConsoleSender().sendMessage(""+getConfig().getInt("queue-cooldown"));
 
         getCommand("addtoqueue").setExecutor(new testCommand());
         getCommand("deletefromqueue").setExecutor(new testCommand2());
@@ -58,7 +58,7 @@ public class BasicQueue extends JavaPlugin{
     }
 
 
-    void loadConfig () {
+    private void loadConfig () {
         CMFile myConfigFile = new CMFile(this, "config") {
             @Override
             public void loadDefaults() {
@@ -77,7 +77,7 @@ public class BasicQueue extends JavaPlugin{
         myConfigFile.load();
     }
 
-    void loadMessages () {
+    private void loadMessages () {
         CMFile myMessagesFile = new CMFile(this, "messages") {
             @Override
             public void loadDefaults() {
@@ -110,15 +110,15 @@ public class BasicQueue extends JavaPlugin{
             @Override
             public void run() {
                 if(!queue.isEmpty()){
-                    long timeStampMustBeMore = System.currentTimeMillis() - (cooldownOnSeconds*1000);
-                    for(Map.Entry<Player,Long> p: queue.entrySet()){
+                    long timeStampMustBeMore = System.currentTimeMillis() - (cooldownOnSeconds* 1000L);
+                    for(Map.Entry<String,Long> p: queue.entrySet()){
                         if(p.getValue() < timeStampMustBeMore){
                             Queue.delete(p.getKey());
                         }
                     }
                 }
             }
-        }.runTaskTimer(this,20, 20);
+        }.runTaskTimer(this,cooldownOnSeconds*20L, 40);
     }
 
 }

@@ -9,56 +9,56 @@ import java.util.Map;
 
 public class Queue {
 
-    public static LinkedHashMap<Player,Long> queue = BasicQueue.queue;
+    public static LinkedHashMap<String,Long> queue = BasicQueue.queue;
 
-    public static Long cooldownOnSeconds = 180L;
+
     // TODO: config getter not working
-    // public static Long cooldownOnSeconds = BasicQueue.getInstance().getConfig().getLong("queue-cooldown");
+    public static int cooldownOnSeconds = 180;
 
 
 
     public static int size(){
         return queue.size();
     }
-    public static boolean isFirst(Player p){
-        return p.getUniqueId().toString().equals(getFirst());
+    public static boolean isFirst(String uuid){
+        return uuid.equals(getFirst());
     }
     public static String getFirst(){
-        return queue.entrySet().iterator().next().getKey().getUniqueId().toString();
+        return queue.entrySet().iterator().next().getKey();
     }
 
-    public static void add(Player p){
-        if(!queue.containsKey(p)){
-            queue.put(p,System.currentTimeMillis());
+    public static void add(String uuid){
+        if(!queue.containsKey(uuid)){
+            queue.put(uuid,System.currentTimeMillis());
         }
     }
-    public static void resetCooldown(Player p){
-        for(Player q : queue.keySet()){
-            if(q.equals(p)){
-                queue.replace(p,System.currentTimeMillis());
+    public static void resetCooldown(String uuid){
+        for(String id : queue.keySet()){
+            if(id.equals(uuid)){
+                queue.replace(uuid,System.currentTimeMillis());
             }
         }
     }
-    public static boolean hasPlayer(Player p){
-        return queue.containsKey(p);
+    public static boolean hasPlayer(String uuid){
+        return queue.containsKey(uuid);
     }
     public static boolean isEmpty(){
         return queue.isEmpty();
     }
     public static boolean hasRoomInsideServer(){
-        return Bukkit.getMaxPlayers()>Bukkit.getOnlinePlayers().size();
+        return Bukkit.getMaxPlayers()>(Bukkit.getOnlinePlayers().size()-1);
     }
-    public static void delete(Player p){
-        queue.remove(p);
+    public static void delete(String uuid){
+        queue.remove(uuid);
     }
-    public static int getPos(Player p){
-        if(!queue.containsKey(p)){
+    public static int getPos(String uuid){
+        if(!queue.containsKey(uuid)){
             return 0;
         }
         int i=0;
-        for(Player q : queue.keySet()){
+        for(String id : queue.keySet()){
             i++;
-            if(p.equals(q)){
+            if(id.equals(uuid)){
                 break;
             }
         }

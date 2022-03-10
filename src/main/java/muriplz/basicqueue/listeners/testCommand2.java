@@ -14,7 +14,7 @@ public class testCommand2 implements CommandExecutor {
             return false;
         }else {
             Player player = (Player) sender;
-            Queue.delete(player);
+            Queue.delete(player.getUniqueId().toString());
             return true;
         }
 
