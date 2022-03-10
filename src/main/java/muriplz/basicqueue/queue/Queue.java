@@ -2,10 +2,8 @@ package muriplz.basicqueue.queue;
 
 import muriplz.basicqueue.BasicQueue;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class Queue {
 
@@ -33,11 +31,7 @@ public class Queue {
         }
     }
     public static void resetCooldown(String uuid){
-        for(String id : queue.keySet()){
-            if(id.equals(uuid)){
-                queue.replace(uuid,System.currentTimeMillis());
-            }
-        }
+        queue.replace(uuid,System.currentTimeMillis());
     }
     public static boolean hasPlayer(String uuid){
         return queue.containsKey(uuid);

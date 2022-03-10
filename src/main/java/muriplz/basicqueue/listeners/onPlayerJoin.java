@@ -1,17 +1,12 @@
 package muriplz.basicqueue.listeners;
 
-import muriplz.basicqueue.BasicQueue;
 import muriplz.basicqueue.messages.Messages;
 import muriplz.basicqueue.queue.Queue;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-
-import java.util.Objects;
 
 public class onPlayerJoin implements Listener {
 
@@ -22,7 +17,7 @@ public class onPlayerJoin implements Listener {
 
         String uuid = p.getUniqueId().toString();
 
-        if(e.getResult()== PlayerLoginEvent.Result.KICK_BANNED || e.getResult() == PlayerLoginEvent.Result.KICK_WHITELIST){
+        if(e.getResult() == PlayerLoginEvent.Result.KICK_OTHER || e.getResult() == PlayerLoginEvent.Result.KICK_BANNED || e.getResult() == PlayerLoginEvent.Result.KICK_WHITELIST){
             return;
         }
 
@@ -36,15 +31,14 @@ public class onPlayerJoin implements Listener {
             }
             return;
         }
-
         if(!Queue.isEmpty()){
             if(Queue.hasRoomInsideServer()){
                 if(!Queue.isFirst(uuid)){
                     p.kickPlayer(Messages.get("default",uuid));
                     Queue.resetCooldown(uuid);
-
                 }else{
                     //joins
+                    Bukkit.getConsoleSender().sendMessage("This is testing IMPORTANT");
                     Queue.delete(uuid);
                     p.sendMessage("you joined!, you were deleted from the queue");
                 }
@@ -56,17 +50,17 @@ public class onPlayerJoin implements Listener {
                     p.kickPlayer(Messages.get("default", uuid));
                     Queue.resetCooldown(uuid);
                 }
-
             }
         }else{
             if(!Queue.hasRoomInsideServer()){
                 Queue.add(uuid);
                 p.kickPlayer(Messages.get("added", uuid));
+            }else{
+                Bukkit.getConsoleSender().sendMessage("This is testing IMPORTANT2");
+                p.sendMessage("test");
+                Queue.delete(uuid);
             }
         }
-
-
     }
-
 }
 
