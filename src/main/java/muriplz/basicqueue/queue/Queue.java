@@ -6,8 +6,6 @@ import org.apache.commons.collections4.map.ListOrderedMap;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.LinkedHashMap;
-
 public class Queue {
 
     public static ListOrderedMap<String,Long> queue = BasicQueue.queue;
