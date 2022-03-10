@@ -32,8 +32,8 @@ public class onPlayerJoin implements Listener {
                 e.setKickMessage(Messages.get("default", uuid));
                 Queue.resetCooldown(uuid);
             }else{
-                e.setKickMessage(Messages.get("added", uuid));
                 Queue.add(uuid);
+                e.setKickMessage(Messages.get("added", uuid));
             }
 
             return;
