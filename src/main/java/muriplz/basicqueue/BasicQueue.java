@@ -2,7 +2,6 @@ package muriplz.basicqueue;
 
 import io.github.thatsmusic99.configurationmaster.CMFile;
 import muriplz.basicqueue.listeners.onPlayerJoin;
-import muriplz.basicqueue.listeners.test;
 import muriplz.basicqueue.listeners.testCommand;
 import muriplz.basicqueue.listeners.testCommand2;
 import muriplz.basicqueue.queue.Queue;
@@ -10,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -49,7 +47,6 @@ public class BasicQueue extends JavaPlugin{
         getCommand("addtoqueue").setExecutor(new testCommand());
         getCommand("deletefromqueue").setExecutor(new testCommand2());
         Bukkit.getServer().getPluginManager().registerEvents(new onPlayerJoin(),this);
-        Bukkit.getServer().getPluginManager().registerEvents(new test(),this);
 
         removeExceededPlayers();
 

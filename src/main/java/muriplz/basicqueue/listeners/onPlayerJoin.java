@@ -15,7 +15,6 @@ import java.util.Objects;
 
 public class onPlayerJoin implements Listener {
 
-
     @EventHandler
     public void onJoin( PlayerLoginEvent e ){
 
