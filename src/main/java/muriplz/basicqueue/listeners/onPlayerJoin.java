@@ -1,5 +1,6 @@
 package muriplz.basicqueue.listeners;
 
+import muriplz.basicqueue.BasicQueue;
 import muriplz.basicqueue.messages.Messages;
 import muriplz.basicqueue.queue.Queue;
 import org.bukkit.Bukkit;
@@ -14,8 +15,13 @@ public class onPlayerJoin implements Listener {
     public void onJoin( PlayerLoginEvent e ){
 
         Player p = e.getPlayer();
-
         String uuid = p.getUniqueId().toString();
+
+        // workaround for essentials feature
+        if( p.isOp() && BasicQueue.essCompat ) {
+            Queue.delete(uuid);
+            return;
+        }
 
         if(e.getResult() == PlayerLoginEvent.Result.KICK_OTHER || e.getResult() == PlayerLoginEvent.Result.KICK_BANNED || e.getResult() == PlayerLoginEvent.Result.KICK_WHITELIST){
             return;
