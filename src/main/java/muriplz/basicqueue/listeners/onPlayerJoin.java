@@ -18,7 +18,7 @@ public class onPlayerJoin implements Listener {
         String uuid = p.getUniqueId().toString();
 
         // workaround for essentials feature
-        if( p.isOp() && BasicQueue.essCompat ) {
+        if( p.hasPermission("essentials.joinfullserver") ) {
             Queue.delete(uuid);
             return;
         }

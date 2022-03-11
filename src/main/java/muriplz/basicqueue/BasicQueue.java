@@ -20,8 +20,7 @@ import static muriplz.basicqueue.queue.Queue.cooldownOnMinutes;
 public class BasicQueue extends JavaPlugin{
 
     public static ListOrderedMap<String,Long> queue;
-    public static boolean essCompat;
-
+    
     private final String locale = getConfig().getString("locale");
 
     PluginDescriptionFile pdffile = getDescription();
@@ -36,11 +35,6 @@ public class BasicQueue extends JavaPlugin{
     public void onEnable(){
         instance = this;
         queue = new ListOrderedMap<>();
-
-        if(Bukkit.getPluginManager().getPlugin("Essentials") != null) {
-            Bukkit.getConsoleSender().sendMessage(name+"Essentials compatibility enabled");
-            essCompat = true;
-        }
 
         loadConfig();
         loadMessages();
