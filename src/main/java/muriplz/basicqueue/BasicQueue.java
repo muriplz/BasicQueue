@@ -47,7 +47,7 @@ public class BasicQueue extends JavaPlugin{
         removeExceededPlayers();
 
         // Plugin activated at this point
-        Bukkit.getConsoleSender().sendMessage(name+ChatColor.GRAY+" The plugin has been activated. Version: "+ChatColor.GREEN+version);
+        Bukkit.getConsoleSender().sendMessage(name+ChatColor.GRAY+" The plugin has been activated. v"+ChatColor.GREEN+version);
 
     }
     public void onDisable() {
