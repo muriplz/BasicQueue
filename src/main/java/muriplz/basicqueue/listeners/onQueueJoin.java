@@ -42,10 +42,7 @@ public class onQueueJoin implements Listener {
                     p.kickPlayer(Messages.get("default",uuid));
                     Queue.resetCooldown(uuid);
                 }else{
-                    //joins
-                    Bukkit.getConsoleSender().sendMessage("This is testing IMPORTANT");
                     Queue.delete(uuid);
-                    p.sendMessage("you joined!, you were deleted from the queue");
                 }
             }else{
                 if( !Queue.hasPlayer(uuid) ){
