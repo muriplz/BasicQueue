@@ -60,10 +60,6 @@ public class onQueueJoin implements Listener {
             if( !Queue.hasRoomInsideServer() ){
                 Queue.add(uuid);
                 p.kickPlayer(Messages.get("added", uuid));
-            }else{
-                Bukkit.getConsoleSender().sendMessage("This is testing IMPORTANT2");
-                p.sendMessage("test");
-                Queue.delete(uuid);
             }
         }
     }
