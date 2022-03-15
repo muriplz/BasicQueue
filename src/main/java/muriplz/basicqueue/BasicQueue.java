@@ -1,7 +1,7 @@
 package muriplz.basicqueue;
 
 import io.github.thatsmusic99.configurationmaster.CMFile;
-import muriplz.basicqueue.listeners.onPlayerJoin;
+import muriplz.basicqueue.listeners.onQueueJoin;
 import muriplz.basicqueue.queue.Queue;
 import org.apache.commons.collections4.map.ListOrderedMap;
 import org.bukkit.Bukkit;
@@ -20,7 +20,7 @@ import static muriplz.basicqueue.queue.Queue.cooldownOnMinutes;
 public class BasicQueue extends JavaPlugin{
 
     public static ListOrderedMap<String,Long> queue;
-    
+
     private final String locale = getConfig().getString("locale");
 
     PluginDescriptionFile pdffile = getDescription();
@@ -39,7 +39,7 @@ public class BasicQueue extends JavaPlugin{
         loadConfig();
         loadMessages();
 
-        Bukkit.getServer().getPluginManager().registerEvents(new onPlayerJoin(),this);
+        Bukkit.getServer().getPluginManager().registerEvents(new onQueueJoin(),this);
 
         removeExceededPlayers();
 

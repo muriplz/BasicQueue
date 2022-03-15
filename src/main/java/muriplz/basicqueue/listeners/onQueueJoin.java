@@ -1,6 +1,5 @@
 package muriplz.basicqueue.listeners;
 
-import muriplz.basicqueue.BasicQueue;
 import muriplz.basicqueue.messages.Messages;
 import muriplz.basicqueue.queue.Queue;
 import org.bukkit.Bukkit;
@@ -9,7 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
-public class onPlayerJoin implements Listener {
+public class onQueueJoin implements Listener {
 
     @EventHandler
     public void onJoin( PlayerLoginEvent e ){
@@ -17,18 +16,18 @@ public class onPlayerJoin implements Listener {
         Player p = e.getPlayer();
         String uuid = p.getUniqueId().toString();
 
-        // workaround for essentials feature
+        // Essentials compatibility
         if( p.hasPermission("essentials.joinfullserver") ) {
             Queue.delete(uuid);
             return;
         }
 
-        if(e.getResult() == PlayerLoginEvent.Result.KICK_OTHER || e.getResult() == PlayerLoginEvent.Result.KICK_BANNED || e.getResult() == PlayerLoginEvent.Result.KICK_WHITELIST){
+        if( e.getResult() == PlayerLoginEvent.Result.KICK_OTHER || e.getResult() == PlayerLoginEvent.Result.KICK_BANNED || e.getResult() == PlayerLoginEvent.Result.KICK_WHITELIST){
             return;
         }
 
-        if(e.getResult()== PlayerLoginEvent.Result.KICK_FULL){
-            if(Queue.hasPlayer(uuid)){
+        if( e.getResult() == PlayerLoginEvent.Result.KICK_FULL ){
+            if( Queue.hasPlayer(uuid) ){
                 e.setKickMessage(Messages.get("default", uuid));
                 Queue.resetCooldown(uuid);
             }else{
@@ -37,9 +36,9 @@ public class onPlayerJoin implements Listener {
             }
             return;
         }
-        if(!Queue.isEmpty()){
+        if( !Queue.isEmpty() ){
             if(Queue.hasRoomInsideServer()){
-                if(!Queue.isFirst(uuid)){
+                if( !Queue.isFirst(uuid) ){
                     p.kickPlayer(Messages.get("default",uuid));
                     Queue.resetCooldown(uuid);
                 }else{
@@ -49,7 +48,7 @@ public class onPlayerJoin implements Listener {
                     p.sendMessage("you joined!, you were deleted from the queue");
                 }
             }else{
-                if(!Queue.hasPlayer(uuid)){
+                if( !Queue.hasPlayer(uuid) ){
                     Queue.add(uuid);
                     p.kickPlayer(Messages.get("added", uuid));
                 }else{
@@ -58,7 +57,7 @@ public class onPlayerJoin implements Listener {
                 }
             }
         }else{
-            if(!Queue.hasRoomInsideServer()){
+            if( !Queue.hasRoomInsideServer() ){
                 Queue.add(uuid);
                 p.kickPlayer(Messages.get("added", uuid));
             }else{
