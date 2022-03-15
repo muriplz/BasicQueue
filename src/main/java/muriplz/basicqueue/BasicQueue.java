@@ -2,6 +2,7 @@ package muriplz.basicqueue;
 
 import io.github.thatsmusic99.configurationmaster.CMFile;
 import muriplz.basicqueue.listeners.onQueueJoin;
+import muriplz.basicqueue.listeners.onServerLeave;
 import muriplz.basicqueue.queue.Queue;
 import org.apache.commons.collections4.map.ListOrderedMap;
 import org.bukkit.Bukkit;
@@ -40,6 +41,8 @@ public class BasicQueue extends JavaPlugin{
         loadMessages();
 
         Bukkit.getServer().getPluginManager().registerEvents(new onQueueJoin(),this);
+        Bukkit.getServer().getPluginManager().registerEvents(new onServerLeave(),this);
+
 
         removeExceededPlayers();
 

@@ -2,7 +2,6 @@ package muriplz.basicqueue.listeners;
 
 import muriplz.basicqueue.messages.Messages;
 import muriplz.basicqueue.queue.Queue;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

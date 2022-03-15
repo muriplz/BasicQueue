@@ -46,6 +46,12 @@ public class Queue {
             }
         }
     }
+    public static void addFirst(String uuid){
+        Long millis = System.currentTimeMillis();
+        if(!queue.containsKey(uuid)){
+            queue.put(0,uuid,millis);
+        }
+    }
     public static void resetCooldown(String uuid){
         queue.replace(uuid,System.currentTimeMillis());
     }

@@ -1,1 +1,2 @@
 - Added support for 1.12-1.18
+- added permission queue.saveleavingslot to save for 3 minutes the slot for a player that just left (in case they crash or whatever)
