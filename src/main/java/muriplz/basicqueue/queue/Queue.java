@@ -6,6 +6,8 @@ import org.apache.commons.collections4.map.ListOrderedMap;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class Queue {
     public static ListOrderedMap<String,Long> queue = BasicQueue.queue;
 
@@ -26,7 +28,7 @@ public class Queue {
         return i;
     }
     public static boolean hasPriority(String uuid){
-        Player p = Bukkit.getPlayer(uuid);
+        Player p = Bukkit.getPlayer(UUID.fromString(uuid));
         if(p==null) return false;
         return p.hasPermission(Permissions.queuePriority);
     }
@@ -78,5 +80,17 @@ public class Queue {
             }
         }
         return i;
+    }
+    public static boolean canJoin(String uuid){
+        return getRoomOnServer(uuid) > getPos(uuid);
+    }
+    public static int getRoomOnServer(String uuid){
+        Player p = Bukkit.getPlayer(UUID.fromString(uuid));
+        int maxPlayers = Bukkit.getMaxPlayers();
+        int onlinePlayers = Bukkit.getOnlinePlayers().size();
+        if(!p.hasPermission(Permissions.reservedSlots)){
+            maxPlayers-=BasicQueue.getInstance().getConfig().getInt("reserved-slots");
+        }
+        return maxPlayers-onlinePlayers;
     }
 }

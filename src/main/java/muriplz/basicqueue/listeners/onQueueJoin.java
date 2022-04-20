@@ -37,7 +37,7 @@ public class onQueueJoin implements Listener {
         }
         if( !Queue.isEmpty() ){
             if(Queue.hasRoomInsideServer()){
-                if( !Queue.isFirst(uuid) ){
+                if( !Queue.canJoin(uuid) ){
                     p.kickPlayer(Messages.get("default",uuid));
                     Queue.resetCooldown(uuid);
                 }else{
