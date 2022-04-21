@@ -3,3 +3,4 @@
 
 1.0-DEV6
 - Improved joining of players that can already join. You don't need to be first. i.e: if you are in position 3 and the server has 4 free slots, you can get into the server the next time you reconnect
+- Fixed startup bug
