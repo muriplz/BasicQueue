@@ -60,9 +60,13 @@ public class BasicQueue extends JavaPlugin{
                 addLink("Github","https://github.com/muriplz/BasicQueue" );
                 addLink("Spigot", "none yet" );
 
-
+                addComment("Select language. Available are downloaded upon plugin load\nIf you want to translate your own, you can create a new file and set here the name of that new file");
                 addDefault("locale","en_en");
+
+                addComment("Set the time in minutes after which a player is removed from the queue if he/she does not reconnect");
                 addDefault("queue-cooldown",3);
+
+                addComment("Set the amount of reserved slots for the queue. \nHaving queue.reservedslots permissions lets you use slots that can't be used by default");
                 addDefault("reserved-slots",0);
                 }
         };
