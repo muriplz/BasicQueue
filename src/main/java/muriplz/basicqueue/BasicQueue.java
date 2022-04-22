@@ -58,7 +58,7 @@ public class BasicQueue extends JavaPlugin{
             @Override
             public void loadDefaults() {
                 addLink("Github","https://github.com/muriplz/BasicQueue" );
-                addLink("Spigot", "none yet" );
+                addLink("Spigot", "https://www.spigotmc.org/resources/basicqueue.101072/" );
 
                 addComment("Select language. Available are downloaded upon plugin load\nIf you want to translate your own, you can create a new file and set here the name of that new file");
                 addDefault("locale","en_en");
@@ -111,7 +111,7 @@ public class BasicQueue extends JavaPlugin{
             @Override
             public void loadDefaults() {
                 addLink("Github","https://github.com/muriplz/BasicQueue" );
-                addLink("Spigot", "ninguno todavía" );
+                addLink("Spigot", "https://www.spigotmc.org/resources/basicqueue.101072/" );
 
                 addComment("Mesajes de expulsión de la cola");
                 addDefault("default","Estás dentro de la cola, tu posición es: &a%POSITION%&f.\nReconéctate en menos de %COOLDOWNMINUTES% minutos para conservar tu posición");
@@ -125,7 +125,7 @@ public class BasicQueue extends JavaPlugin{
             @Override
             public void loadDefaults() {
                 addLink("Github","https://github.com/muriplz/BasicQueue" );
-                addLink("Spigot", "none yet" );
+                addLink("Spigot", "https://www.spigotmc.org/resources/basicqueue.101072/" );
 
                 addComment("Queue kick Messages");
                 addDefault("default","You are inside the queue, and your position is: &a%POSITION%&f.\nReconnect within %COOLDOWNMINUTES% minutes to keep your position");

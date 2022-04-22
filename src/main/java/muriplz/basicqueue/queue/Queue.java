@@ -30,7 +30,7 @@ public class Queue {
     public static boolean hasReserved(String uuid){
         Player p = Bukkit.getPlayer(UUID.fromString(uuid));
         if(p==null) return false;
-        return p.hasPermission(Permissions.reservedSlots);
+        return p.hasPermission(Permissions.reservedSlot);
     }
     public static boolean hasPriority(String uuid){
         Player p = Bukkit.getPlayer(UUID.fromString(uuid));
