@@ -43,7 +43,7 @@ public class BasicQueue extends JavaPlugin{
         Bukkit.getServer().getPluginManager().registerEvents(new onQueueJoin(),this);
         Bukkit.getServer().getPluginManager().registerEvents(new onServerLeave(),this);
 
-
+        Bukkit.getConsoleSender().sendMessage(Queue.reservedSlots+" reserved slots");
         removeExceededPlayers();
 
         // Plugin activated at this point
@@ -53,11 +53,20 @@ public class BasicQueue extends JavaPlugin{
     public void onDisable() {
         Bukkit.getConsoleSender().sendMessage(name+ChatColor.WHITE+" The plugin has been deactivated.");
     }
-    private void loadConfig(){
-        config.addDefault("queue-cooldown",3);
-        config.addDefault("locale","en_en");
-        config.options().copyDefaults(true);
-        saveConfig();
+    private void loadConfig () {
+        CMFile myConfigFile = new CMFile(this, "config") {
+            @Override
+            public void loadDefaults() {
+                addLink("Github","https://github.com/muriplz/BasicQueue" );
+                addLink("Spigot", "none yet" );
+
+
+                addDefault("locale","en_en");
+                addDefault("queue-cooldown",3);
+                addDefault("reserved-slots",0);
+                }
+        };
+        myConfigFile.load();
     }
     private void loadMessages(){
         loadEnMessages();

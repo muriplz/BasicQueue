@@ -12,7 +12,7 @@ public class Queue {
     public static ListOrderedMap<String,Long> queue = BasicQueue.queue;
 
     public static int cooldownOnMinutes = BasicQueue.getInstance().getConfig().getInt("queue-cooldown");
-
+    public static int reservedSlots = BasicQueue.getInstance().getConfig().getInt("reserved-slots");
     public static int prioritySize(){
         int i=0;
         if(isEmpty()){
@@ -26,6 +26,11 @@ public class Queue {
 
         }while (i<queue.size());
         return i;
+    }
+    public static boolean hasReserved(String uuid){
+        Player p = Bukkit.getPlayer(UUID.fromString(uuid));
+        if(p==null) return false;
+        return p.hasPermission(Permissions.reservedSlots);
     }
     public static boolean hasPriority(String uuid){
         Player p = Bukkit.getPlayer(UUID.fromString(uuid));
@@ -88,7 +93,7 @@ public class Queue {
         Player p = Bukkit.getPlayer(UUID.fromString(uuid));
         int maxPlayers = Bukkit.getMaxPlayers();
         int onlinePlayers = Bukkit.getOnlinePlayers().size();
-        if(!p.hasPermission(Permissions.reservedSlots)){
+        if(!hasReserved(uuid)){
             maxPlayers-=BasicQueue.getInstance().getConfig().getInt("reserved-slots");
         }
         return maxPlayers-onlinePlayers;
