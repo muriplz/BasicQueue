@@ -24,6 +24,9 @@ public class BasicQueue extends JavaPlugin{
 
     private final String locale = getConfig().getString("locale");
 
+    private final String spigotLink = "https://www.spigotmc.org/resources/basicqueue.101072/";
+
+    private final String githubLink = "https://github.com/muriplz/BasicQueue";
     PluginDescriptionFile pdffile = getDescription();
     public String name = ChatColor.YELLOW+"["+ChatColor.WHITE+pdffile.getName()+ChatColor.YELLOW+"]";
     public String version = pdffile.getVersion();
@@ -57,8 +60,8 @@ public class BasicQueue extends JavaPlugin{
         CMFile myConfigFile = new CMFile(this, "config") {
             @Override
             public void loadDefaults() {
-                addLink("Github","https://github.com/muriplz/BasicQueue" );
-                addLink("Spigot", "https://www.spigotmc.org/resources/basicqueue.101072/" );
+                addLink("Github",githubLink );
+                addLink("Spigot", spigotLink );
 
                 addComment("Select language. Available are downloaded upon plugin load\nIf you want to translate your own, you can create a new file and set here the name of that new file");
                 addDefault("locale","en_en");
@@ -110,8 +113,8 @@ public class BasicQueue extends JavaPlugin{
         CMFile myMessagesFile = new CMFile(this, "es_es") {
             @Override
             public void loadDefaults() {
-                addLink("Github","https://github.com/muriplz/BasicQueue" );
-                addLink("Spigot", "https://www.spigotmc.org/resources/basicqueue.101072/" );
+                addLink("Github",githubLink );
+                addLink("Spigot", spigotLink );
 
                 addComment("Mesajes de expulsión de la cola");
                 addDefault("default","Estás dentro de la cola, tu posición es: &a%POSITION%&f.\nReconéctate en menos de %COOLDOWNMINUTES% minutos para conservar tu posición");
@@ -124,8 +127,8 @@ public class BasicQueue extends JavaPlugin{
         CMFile myMessagesFile = new CMFile(this, "en_en") {
             @Override
             public void loadDefaults() {
-                addLink("Github","https://github.com/muriplz/BasicQueue" );
-                addLink("Spigot", "https://www.spigotmc.org/resources/basicqueue.101072/" );
+                addLink("Github",githubLink );
+                addLink("Spigot", spigotLink );
 
                 addComment("Queue kick Messages");
                 addDefault("default","You are inside the queue, and your position is: &a%POSITION%&f.\nReconnect within %COOLDOWNMINUTES% minutes to keep your position");
