@@ -33,7 +33,6 @@ public class BasicQueue extends JavaPlugin{
 
     public static BasicQueue instance;
 
-    FileConfiguration config = this.getConfig();
 
     @Override
     public void onEnable(){
@@ -46,7 +45,6 @@ public class BasicQueue extends JavaPlugin{
         Bukkit.getServer().getPluginManager().registerEvents(new onQueueJoin(),this);
         Bukkit.getServer().getPluginManager().registerEvents(new onServerLeave(),this);
 
-        Bukkit.getConsoleSender().sendMessage(Queue.reservedSlots+" reserved slots");
         removeExceededPlayers();
 
         // Plugin activated at this point
