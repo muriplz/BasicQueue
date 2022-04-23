@@ -7,6 +7,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import static muriplz.basicqueue.BasicQueue.queue;
+import static muriplz.basicqueue.queue.Queue.prioritySize;
+
 public class onServerLeave implements Listener {
 
     @EventHandler
@@ -16,8 +19,6 @@ public class onServerLeave implements Listener {
         if(!p.hasPermission(Permissions.saveLeavingSlot)){
             return;
         }
-
-        Queue.addFirst(p.getUniqueId().toString());
-
+        queue.put(prioritySize() + 1 , p.getUniqueId().toString() , System.currentTimeMillis());
     }
 }

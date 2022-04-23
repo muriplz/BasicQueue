@@ -69,7 +69,7 @@ public class BasicQueue extends JavaPlugin{
 
                 addComment("Set the amount of reserved slots for the queue. \nHaving queue.reservedslots permissions lets you use slots that can't be used by default");
                 addDefault("reserved-slots",0);
-                }
+            }
         };
         myConfigFile.load();
     }
