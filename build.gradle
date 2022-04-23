@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'org.example'
-version '1.0-DEV8'
+version '1.0-DEV9'
 
 compileJava.options.encoding = 'UTF-8'
 
