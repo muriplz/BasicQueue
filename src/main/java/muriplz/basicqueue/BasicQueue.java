@@ -67,7 +67,7 @@ public class BasicQueue extends JavaPlugin{
                 addComment("Set the time in minutes after which a player is removed from the queue if he/she does not reconnect");
                 addDefault("queue-cooldown",3);
 
-                addComment("Set the amount of reserved slots for the queue. \nHaving queue.reservedslots permissions lets you use slots that can't be used by default");
+                addComment("Set the amount of reserved slots for the queue. \nHaving queue.reservedslot permissions lets you use slots that can't be used by default");
                 addDefault("reserved-slots",0);
             }
         };
