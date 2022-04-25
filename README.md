@@ -39,3 +39,5 @@ queue-cooldown: 3
 # Having queue.reservedslot permissions lets you use slots that can't be used by default
 reserved-slots: 0
 ```
+	
+#### Special thanks to Configuration Master plugin (https://github.com/Errored-Innovations/ConfigurationMaster) that takes care of all .yml files formatting! <3
