@@ -1,6 +1,6 @@
 main: muriplz.basicqueue.BasicQueue
 name: BasicQueue
-version: 1.0-DEV9
+version: 1.0-DEV10
 api-version: 1.18
 load: POSTWORLD
 author: muriplz
