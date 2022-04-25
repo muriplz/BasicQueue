@@ -25,7 +25,7 @@ All PR's regarding language are more than welcome!
 ###############################################################################
 #                                                                             #
 # Github - https://github.com/muriplz/BasicQueue                              #
-# Spigot - none yet                                                           #
+# Spigot - https://www.spigotmc.org/resources/basicqueue.101072/              #
 ###############################################################################
 
 # Select language. Available are downloaded upon plugin load
