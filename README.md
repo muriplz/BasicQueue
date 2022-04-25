@@ -15,3 +15,27 @@ All messages that are shown are always on the kick screen (instead of the typica
 # Languages
 For now there are only 2 languages: English (default) and Spanish. You can always translate the file and change the locale config option to the name of your choosing.
 All PR's regarding language are more than welcome!
+	
+# Config.yml
+```java
+###############################################################################
+#                             -<( BasicQueue )>-                              #
+#                               Made by muriplz                               #
+#                                                                             #
+###############################################################################
+#                                                                             #
+# Github - https://github.com/muriplz/BasicQueue                              #
+# Spigot - none yet                                                           #
+###############################################################################
+
+# Select language. Available are downloaded upon plugin load
+# If you want to translate your own, you can create a new file and set here the name of that new file
+locale: en_en
+
+# Set the time in minutes after which a player is removed from the queue if he/she does not reconnect
+queue-cooldown: 3
+
+# Set the amount of reserved slots for the queue. 
+# Having queue.reservedslots permissions lets you use slots that can't be used by default
+reserved-slots: 0
+```
