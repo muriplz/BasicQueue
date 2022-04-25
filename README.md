@@ -17,7 +17,7 @@ For now there are only 2 languages: English (default) and Spanish. You can alway
 All PR's regarding language are more than welcome!
 	
 # Config.yml
-```java
+```yaml
 ###############################################################################
 #                             -<( BasicQueue )>-                              #
 #                               Made by muriplz                               #
