@@ -36,6 +36,6 @@ locale: en_en
 queue-cooldown: 3
 
 # Set the amount of reserved slots for the queue. 
-# Having queue.reservedslots permissions lets you use slots that can't be used by default
+# Having queue.reservedslot permissions lets you use slots that can't be used by default
 reserved-slots: 0
 ```
