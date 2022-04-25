@@ -3,7 +3,11 @@
 	<a href="https://www.spigotmc.org/resources/basicqueue.101072/"><img src="https://img.shields.io/badge/Spigot-ff5733" alt="Patreon"></a>
 	<a href="https://discord.gg/WZ6TjrqpXD"><img src="https://img.shields.io/discord/929394649884405761?color=5865f2&label=Discord&style=flat" alt="Discord"></a>
 
-# BasicQueue
+# Permissions
+- **queue.priority** -> Gives a player priority when joining the queue
+- **queue.saveleavingslot** -> When that player leaves the server, joins with priority to the queue (even if the player does not have priority permisison)
+- **queue.reservedslot** -> Gives a player permission to join on a reserved slot
+
 
 # TODO LIST
 - add reserved slots
