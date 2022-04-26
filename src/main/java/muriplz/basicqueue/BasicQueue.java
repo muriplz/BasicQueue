@@ -98,9 +98,10 @@ public class BasicQueue extends JavaPlugin{
             public void run() {
                 if(!queue.isEmpty()){
                     long timeStampMustBeMore = System.currentTimeMillis() - (cooldownOnMinutes*60*1000L);
-                    for(Map.Entry<String,Long> p: queue.entrySet()){
-                        if(p.getValue() < timeStampMustBeMore){
-                            Queue.delete(p.getKey());
+                    for(String p: queue.keySet()){
+                        Long timeStamp = queue.get(p);
+                        if(timeStamp < timeStampMustBeMore){
+                            Queue.delete(p);
                         }
                     }
                 }
