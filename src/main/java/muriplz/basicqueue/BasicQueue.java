@@ -103,7 +103,7 @@ public class BasicQueue extends JavaPlugin{
 
                     while (it.hasNext())
                     {
-                        Long timeStamp = queue.get(it.toString());
+                        Long timeStamp = queue.get(it.next());
                         it.next();
                         if (timeStamp < timeStampMustBeMore)
                             it.remove();
