@@ -101,7 +101,7 @@ public class BasicQueue extends JavaPlugin{
                     for(String p: queue.keySet()){
                         Long timeStamp = queue.get(p);
                         if(timeStamp < timeStampMustBeMore){
-                            Queue.delete(p);
+                            queue.remove(p,timeStamp);
                         }
                     }
                 }
