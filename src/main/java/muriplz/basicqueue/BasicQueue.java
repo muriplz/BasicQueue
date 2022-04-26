@@ -14,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.Map;
 
 import static muriplz.basicqueue.queue.Queue.cooldownOnMinutes;
@@ -97,12 +98,15 @@ public class BasicQueue extends JavaPlugin{
             @Override
             public void run() {
                 if(!queue.isEmpty()){
+                    Iterator<String> it = queue.keySet().iterator();
                     long timeStampMustBeMore = System.currentTimeMillis() - (cooldownOnMinutes*60*1000L);
-                    for(String p: queue.keySet()){
-                        Long timeStamp = queue.get(p);
-                        if(timeStamp < timeStampMustBeMore){
-                            queue.remove(p);
-                        }
+
+                    while (it.hasNext())
+                    {
+                        Long timeStamp = queue.get(it.toString());
+                        it.next();
+                        if (timeStamp < timeStampMustBeMore)
+                            it.remove();
                     }
                 }
             }
