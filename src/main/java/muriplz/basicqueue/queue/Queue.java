@@ -43,16 +43,7 @@ public class Queue {
     public static boolean hasPlayer(String uuid){
         return queue.containsKey(uuid);
     }
-
-    public static boolean isFirst(String uuid){
-        return uuid.equals(queue.firstKey());
-    }
-    public static void addFirst(String uuid){
-        Long millis = System.currentTimeMillis();
-        if(!queue.containsKey(uuid)){
-            queue.put(0,uuid,millis);
-        }
-    }
+    
     public static void add(String uuid){
         Long millis = System.currentTimeMillis();
         if(!queue.containsKey(uuid)){
