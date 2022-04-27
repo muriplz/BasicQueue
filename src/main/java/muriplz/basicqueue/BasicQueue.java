@@ -100,12 +100,12 @@ public class BasicQueue extends JavaPlugin{
                 if(!queue.isEmpty()){
                     Iterator<String> it = queue.keySet().iterator();
                     long timeStampMustBeMore = System.currentTimeMillis() - (cooldownOnMinutes*60*1000L);
-
                     while (it.hasNext())
                     {
                         Long timeStamp = queue.get(it.next());
-                        if (timeStamp < timeStampMustBeMore)
+                        if (timeStamp < timeStampMustBeMore){
                             it.remove();
+                        }
                     }
                 }
             }

@@ -43,7 +43,7 @@ public class Queue {
     public static boolean hasPlayer(String uuid){
         return queue.containsKey(uuid);
     }
-    
+
     public static void add(String uuid){
         Long millis = System.currentTimeMillis();
         if(!queue.containsKey(uuid)){
