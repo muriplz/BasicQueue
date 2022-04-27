@@ -4,12 +4,13 @@ import muriplz.basicqueue.messages.Messages;
 import muriplz.basicqueue.queue.Queue;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 public class onQueueJoin implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin( PlayerLoginEvent e ){
 
         Player p = e.getPlayer();
