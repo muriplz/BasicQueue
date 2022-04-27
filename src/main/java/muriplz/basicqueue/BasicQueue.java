@@ -119,8 +119,8 @@ public class BasicQueue extends JavaPlugin{
                 addLink("Spigot", spigotLink );
 
                 addComment("Mesajes de expulsión de la cola");
-                addDefault("default","Estás dentro de la cola, tu posición es: &a%POSITION%&f.\nReconéctate en menos de %COOLDOWNMINUTES% minutos para conservar tu posición");
-                addDefault("added","Has sido añadido a la cola, tu posición es: &a%POSITION%&f.\nReconéctate en menos de %COOLDOWNMINUTES% minutos para conservar tu posición");
+                addDefault("default","Estás dentro de la cola, tu posición es: &a%POSITION%&f de %QUEUESIZE%.\nReconéctate en menos de %COOLDOWNMINUTES% minutos para conservar tu posición");
+                addDefault("added","Has sido añadido a la cola, tu posición es: &a%POSITION%&f de %QUEUESIZE%.\nReconéctate en menos de %COOLDOWNMINUTES% minutos para conservar tu posición");
             }
         };
         myMessagesFile.load();
@@ -133,8 +133,8 @@ public class BasicQueue extends JavaPlugin{
                 addLink("Spigot", spigotLink );
 
                 addComment("Queue kick Messages");
-                addDefault("default","You are inside the queue, and your position is: &a%POSITION%&f.\nReconnect within %COOLDOWNMINUTES% minutes to keep your position");
-                addDefault("added","You have been added to the queue, and your position is: &a%POSITION%&f.\nReconnect within %COOLDOWNMINUTES% minutes to keep your position");
+                addDefault("default","You are inside the queue, and your position is: &a%POSITION%&f out of %QUEUESIZE%.\nReconnect within %COOLDOWNMINUTES% minutes to keep your position");
+                addDefault("added","You have been added to the queue, and your position is: &a%POSITION%&f out of %QUEUESIZE%.\nReconnect within %COOLDOWNMINUTES% minutes to keep your position");
             }
         };
         myMessagesFile.load();

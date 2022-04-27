@@ -13,6 +13,10 @@ public class Queue {
 
     public static int cooldownOnMinutes = BasicQueue.getInstance().getConfig().getInt("queue-cooldown");
     public static int reservedSlots = BasicQueue.getInstance().getConfig().getInt("reserved-slots");
+
+    public static int getSize() {
+        return queue.size();
+    }
     public static int prioritySize(){
         int i=0;
         if(isEmpty()){
