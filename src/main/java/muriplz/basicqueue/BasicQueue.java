@@ -106,6 +106,9 @@ public class BasicQueue extends JavaPlugin{
                         if (timeStamp < timeStampMustBeMore){
                             it.remove();
                         }
+                        if (it.hasNext()){
+                            it.next();
+                        }
                     }
                 }
             }
