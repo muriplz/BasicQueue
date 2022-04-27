@@ -38,6 +38,9 @@ queue-cooldown: 3
 # Set the amount of reserved slots for the queue. 
 # Having queue.reservedslot permissions lets you use slots that can't be used by default
 reserved-slots: 0
+	
+# If on true, players leaving with queue.saveleavingslot permission will join the queue with priority
+leaving-slot-priority: true
 ```
 	
 #### Special thanks to Configuration Master plugin (https://github.com/Errored-Innovations/ConfigurationMaster) that takes care of all .yml files formatting! <3
