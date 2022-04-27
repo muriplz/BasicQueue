@@ -1,5 +1,6 @@
 package muriplz.basicqueue.listeners;
 
+import muriplz.basicqueue.BasicQueue;
 import muriplz.basicqueue.permissions.Permissions;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,7 @@ import static muriplz.basicqueue.queue.Queue.prioritySize;
 
 public class onServerLeave implements Listener {
 
+    public static boolean leavingSlotPriority = BasicQueue.getInstance().getConfig().getBoolean("leaving-slot-priority");
     @EventHandler
     public void onLeave(PlayerQuitEvent e){
         Player p = e.getPlayer();
@@ -18,6 +20,10 @@ public class onServerLeave implements Listener {
         if(!p.hasPermission(Permissions.saveLeavingSlot)){
             return;
         }
-        queue.put(prioritySize() + 1 , p.getUniqueId().toString() , System.currentTimeMillis());
+        if(leavingSlotPriority){
+            queue.put(prioritySize() + 1 , p.getUniqueId().toString() , System.currentTimeMillis());
+        }else{
+            queue.put(queue.size() + 1 , p.getUniqueId().toString() , System.currentTimeMillis());
+        }
     }
 }

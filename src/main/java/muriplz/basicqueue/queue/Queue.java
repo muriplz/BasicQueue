@@ -94,7 +94,7 @@ public class Queue {
         int maxPlayers = Bukkit.getMaxPlayers();
         int onlinePlayers = Bukkit.getOnlinePlayers().size();
         if(!hasReserved(uuid)){
-            maxPlayers-=BasicQueue.getInstance().getConfig().getInt("reserved-slots");
+            maxPlayers-=reservedSlots;
         }
         return maxPlayers-onlinePlayers;
     }

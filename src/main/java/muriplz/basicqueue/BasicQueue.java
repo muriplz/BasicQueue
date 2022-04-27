@@ -67,6 +67,9 @@ public class BasicQueue extends JavaPlugin{
 
                 addComment("Set the amount of reserved slots for the queue. \nHaving queue.reservedslot permissions lets you use slots that can't be used by default");
                 addDefault("reserved-slots",0);
+
+                addComment("If on true, players leaving with queue.saveleavingslot permission will join the queue with priority");
+                addDefault("leaving-slot-priority",true);
             }
         };
         myConfigFile.load();
