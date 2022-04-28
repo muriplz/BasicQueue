@@ -70,6 +70,9 @@ public class BasicQueue extends JavaPlugin{
 
                 addComment("If on true, players leaving with queue.saveleavingslot permission will join the queue with priority");
                 addDefault("leaving-slot-priority",true);
+
+                addComment("Adds estimated time on kick message");
+                addDefault("estimated-time",false);
             }
         };
         myConfigFile.load();

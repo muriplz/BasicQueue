@@ -11,6 +11,8 @@ import java.util.UUID;
 public class Queue {
     public static ListOrderedMap<String,Long> queue = BasicQueue.queue;
 
+    public static boolean estimatedTime = BasicQueue.getInstance().getConfig().getBoolean("estimated-time");
+
     public static int cooldownOnMinutes = BasicQueue.getInstance().getConfig().getInt("queue-cooldown");
     public static int reservedSlots = BasicQueue.getInstance().getConfig().getInt("reserved-slots");
 
