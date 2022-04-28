@@ -120,10 +120,12 @@ public class BasicQueue extends JavaPlugin{
             public void loadDefaults() {
                 addLink("Github",githubLink );
                 addLink("Spigot", spigotLink );
-                addComment("Placeholders:\n%QUEUEPOS% - Posición en la cola\n%QUEUESIZE% - tamaño de la cola\n%QUEUECOOLDOWN% - Cooldown en minutos");
+                addComment("Placeholders:\n%QUEUEPOS% - Posición en la cola\n%QUEUESIZE% - tamaño de la cola\n%QUEUECOOLDOWN% - Cooldown en minutos\n%ESTIMATION% - Tiempo estimado de espera");
                 addComment("Mesajes de expulsión de la cola:");
                 addDefault("default","Estás dentro de la cola, tu posición es: &a%QUEUEPOS%&f de %QUEUESIZE%.\nReconéctate en menos de %COOLDOWNMINUTES% minutos para conservar tu posición");
                 addDefault("added","Has sido añadido a la cola, tu posición es: &a%QUEUEPOS%&f de %QUEUESIZE%.\nReconéctate en menos de %COOLDOWNMINUTES% minutos para conservar tu posición");
+                addDefault("estimation","Tiempo estimado de espera: %ESTIMATION%&f minutos");
+
             }
         };
         myMessagesFile.load();
@@ -135,10 +137,11 @@ public class BasicQueue extends JavaPlugin{
                 addLink("Github",githubLink );
                 addLink("Spigot", spigotLink );
 
-                addComment("Available placeholders:\n%QUEUEPOS% - Position in queue\n%QUEUESIZE% - Size of queue\n%QUEUECOOLDOWN% - Cooldown in minutes");
+                addComment("Available placeholders:\n%QUEUEPOS% - Position in queue\n%QUEUESIZE% - Size of queue\n%QUEUECOOLDOWN% - Cooldown in minutes\n%ESTIMATION% - Estimated wait time in minutes");
                 addComment("Queue kick Messages");
                 addDefault("default","You are inside the queue, and your position is: &a%QUEUEPOS%&f out of %QUEUESIZE%.\nReconnect within %COOLDOWNMINUTES% minutes to keep your position");
                 addDefault("added","You have been added to the queue, and your position is: &a%QUEUEPOS%&f out of %QUEUESIZE%.\nReconnect within %COOLDOWNMINUTES% minutes to keep your position");
+                addDefault("estimation","Estimated waiting time: %ESTIMATION%&f minutes");
             }
         };
         myMessagesFile.load();

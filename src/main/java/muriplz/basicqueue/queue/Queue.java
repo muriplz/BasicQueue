@@ -93,4 +93,7 @@ public class Queue {
         }
         return maxPlayers-onlinePlayers;
     }
+    public static int getEstimation(String uuid){
+        return getPos(uuid)*cooldownOnMinutes;
+    }
 }

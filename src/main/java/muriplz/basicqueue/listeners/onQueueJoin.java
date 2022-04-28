@@ -16,6 +16,9 @@ public class onQueueJoin implements Listener {
         Player p = e.getPlayer();
         String uuid = p.getUniqueId().toString();
 
+        String addedMessage = Messages.get("added", uuid).concat("\n"+Messages.get("estimation",uuid));
+        String defaultMessage = Messages.get("default", uuid).concat("\n"+Messages.get("estimation",uuid));
+
         // Essentials compatibility
         if( p.hasPermission("essentials.joinfullserver") ) {
             Queue.delete(uuid);
@@ -28,18 +31,18 @@ public class onQueueJoin implements Listener {
 
         if( e.getResult() == PlayerLoginEvent.Result.KICK_FULL ){
             if( Queue.hasPlayer(uuid) ){
-                e.setKickMessage(Messages.get("default", uuid));
+                e.setKickMessage(defaultMessage);
                 Queue.resetCooldown(uuid);
             }else{
                 Queue.add(uuid);
-                e.setKickMessage(Messages.get("added", uuid));
+                e.setKickMessage(addedMessage);
             }
             return;
         }
         if( !Queue.isEmpty() ){
             if(Queue.hasRoomInsideServer()){
                 if( !Queue.canJoin(uuid) ){
-                    p.kickPlayer(Messages.get("default",uuid));
+                    p.kickPlayer(defaultMessage);
                     Queue.resetCooldown(uuid);
                 }else{
                     Queue.delete(uuid);
@@ -47,16 +50,16 @@ public class onQueueJoin implements Listener {
             }else{
                 if( !Queue.hasPlayer(uuid) ){
                     Queue.add(uuid);
-                    p.kickPlayer(Messages.get("added", uuid));
+                    p.kickPlayer(addedMessage);
                 }else{
-                    p.kickPlayer(Messages.get("default", uuid));
+                    p.kickPlayer(defaultMessage);
                     Queue.resetCooldown(uuid);
                 }
             }
         }else{
             if( !Queue.hasRoomInsideServer() ){
                 Queue.add(uuid);
-                p.kickPlayer(Messages.get("added", uuid));
+                p.kickPlayer(addedMessage);
             }
         }
     }
