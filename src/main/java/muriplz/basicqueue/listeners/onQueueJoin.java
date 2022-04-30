@@ -1,6 +1,5 @@
 package muriplz.basicqueue.listeners;
 
-import muriplz.basicqueue.BasicQueue;
 import muriplz.basicqueue.messages.Messages;
 import muriplz.basicqueue.queue.Queue;
 import org.bukkit.entity.Player;
@@ -20,7 +19,7 @@ public class onQueueJoin implements Listener {
         String addedMessage = Messages.get("added", uuid);
         String defaultMessage = Messages.get("default", uuid);
 
-        if(Queue.estimatedTime){
+        if(Queue.IS_ESTIMATION_ENABLED){
             addedMessage = addedMessage.concat("\n"+Messages.get("estimation",uuid));
             defaultMessage = defaultMessage.concat("\n"+Messages.get("estimation",uuid));
         }

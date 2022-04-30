@@ -14,7 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.io.File;
 import java.util.Iterator;
 
-import static muriplz.basicqueue.queue.Queue.cooldownOnMinutes;
+import static muriplz.basicqueue.queue.Queue.COOLDOWN_MINUTES;
 
 public class BasicQueue extends JavaPlugin{
 
@@ -25,9 +25,9 @@ public class BasicQueue extends JavaPlugin{
     private final String spigotLink = "https://www.spigotmc.org/resources/basicqueue.101072/";
 
     private final String githubLink = "https://github.com/muriplz/BasicQueue";
-    PluginDescriptionFile pdffile = getDescription();
-    public String name = ChatColor.YELLOW+"["+ChatColor.WHITE+pdffile.getName()+ChatColor.YELLOW+"]";
-    public String version = pdffile.getVersion();
+    PluginDescriptionFile pdfFile = getDescription();
+    public String name = ChatColor.YELLOW+"["+ChatColor.WHITE+ pdfFile.getName()+ChatColor.YELLOW+"]";
+    public String version = pdfFile.getVersion();
 
     public static BasicQueue instance;
 
@@ -102,7 +102,7 @@ public class BasicQueue extends JavaPlugin{
             public void run() {
                 if(!queue.isEmpty()){
                     Iterator<String> it = queue.keySet().iterator();
-                    long timeStampMustBeMore = System.currentTimeMillis() - (cooldownOnMinutes*60*1000L);
+                    long timeStampMustBeMore = System.currentTimeMillis() - (COOLDOWN_MINUTES *60*1000L);
                     while (it.hasNext())
                     {
                         Long timeStamp = queue.get(it.next());
@@ -115,7 +115,7 @@ public class BasicQueue extends JavaPlugin{
                     }
                 }
             }
-        }.runTaskTimer(this,cooldownOnMinutes*60*20L, 40);
+        }.runTaskTimer(this, COOLDOWN_MINUTES *60*20L, 40);
     }
     private void loadEsMessages () {
         CMFile myMessagesFile = new CMFile(this, "es_es") {

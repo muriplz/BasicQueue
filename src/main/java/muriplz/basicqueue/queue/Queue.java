@@ -11,10 +11,10 @@ import java.util.UUID;
 public class Queue {
     public static ListOrderedMap<String,Long> queue = BasicQueue.queue;
 
-    public static boolean estimatedTime = BasicQueue.getInstance().getConfig().getBoolean("estimated-time");
+    public static boolean IS_ESTIMATION_ENABLED = BasicQueue.getInstance().getConfig().getBoolean("estimated-time");
 
-    public static int cooldownOnMinutes = BasicQueue.getInstance().getConfig().getInt("queue-cooldown");
-    public static int reservedSlots = BasicQueue.getInstance().getConfig().getInt("reserved-slots");
+    public static int COOLDOWN_MINUTES = BasicQueue.getInstance().getConfig().getInt("queue-cooldown");
+    public static int RESERVED_SLOTS = BasicQueue.getInstance().getConfig().getInt("reserved-slots");
 
     public static int getSize() {
         return queue.size();
@@ -91,11 +91,11 @@ public class Queue {
         int maxPlayers = Bukkit.getMaxPlayers();
         int onlinePlayers = Bukkit.getOnlinePlayers().size();
         if(!hasReserved(uuid)){
-            maxPlayers-=reservedSlots;
+            maxPlayers-= RESERVED_SLOTS;
         }
         return maxPlayers-onlinePlayers;
     }
     public static int getEstimation(String uuid){
-        return getPos(uuid)*cooldownOnMinutes;
+        return getPos(uuid)* COOLDOWN_MINUTES;
     }
 }
