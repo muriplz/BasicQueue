@@ -8,13 +8,15 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
+import java.util.UUID;
+
 public class onQueueJoin implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin( PlayerLoginEvent e ){
 
         Player p = e.getPlayer();
-        String uuid = p.getUniqueId().toString();
+        UUID uuid = p.getUniqueId();
 
         String addedMessage = Messages.get("added", uuid);
         String defaultMessage = Messages.get("default", uuid);

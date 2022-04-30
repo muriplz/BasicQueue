@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 public class Queue {
-    public static ListOrderedMap<String,Long> queue = BasicQueue.queue;
+    public static ListOrderedMap<UUID,Long> queue = BasicQueue.queue;
 
     public static boolean IS_ESTIMATION_ENABLED = BasicQueue.getInstance().getConfig().getBoolean("estimated-time");
 
@@ -33,24 +33,24 @@ public class Queue {
         }while (i<queue.size());
         return i;
     }
-    public static boolean hasReserved(String uuid){
-        Player p = Bukkit.getPlayer(UUID.fromString(uuid));
+    public static boolean hasReserved(UUID uuid){
+        Player p = Bukkit.getPlayer(uuid);
         if(p==null) return false;
         return p.hasPermission(Permissions.reservedSlot);
     }
-    public static boolean hasPriority(String uuid){
-        Player p = Bukkit.getPlayer(UUID.fromString(uuid));
+    public static boolean hasPriority(UUID uuid){
+        Player p = Bukkit.getPlayer(uuid);
         if(p==null) return false;
         return p.hasPermission(Permissions.queuePriority);
     }
     public static boolean hasRoomInsideServer(){
         return Bukkit.getMaxPlayers()>(Bukkit.getOnlinePlayers().size()-1);
     }
-    public static boolean hasPlayer(String uuid){
+    public static boolean hasPlayer(UUID uuid){
         return queue.containsKey(uuid);
     }
 
-    public static void add(String uuid){
+    public static void add(UUID uuid){
         Long millis = System.currentTimeMillis();
         if(!queue.containsKey(uuid)){
             if(hasPriority(uuid)){
@@ -60,22 +60,22 @@ public class Queue {
             }
         }
     }
-    public static void delete(String uuid){
+    public static void delete(UUID uuid){
         queue.remove(uuid);
     }
 
-    public static void resetCooldown(String uuid){
+    public static void resetCooldown(UUID uuid){
         queue.replace(uuid,System.currentTimeMillis());
     }
     public static boolean isEmpty(){
         return queue.isEmpty();
     }
-    public static int getPos(String uuid){
+    public static int getPos(UUID uuid){
         if(!queue.containsKey(uuid)||isEmpty()){
             return 0;
         }
         int i=0;
-        for(String id : queue.keySet()){
+        for(UUID id : queue.keySet()){
             i++;
             if(id.equals(uuid)){
                 break;
@@ -83,11 +83,11 @@ public class Queue {
         }
         return i;
     }
-    public static boolean canJoin(String uuid){
+    public static boolean canJoin(UUID uuid){
         return getRoomOnServer(uuid) > getPos(uuid);
     }
-    public static int getRoomOnServer(String uuid){
-        Player p = Bukkit.getPlayer(UUID.fromString(uuid));
+    public static int getRoomOnServer(UUID uuid){
+        Player p = Bukkit.getPlayer(uuid);
         int maxPlayers = Bukkit.getMaxPlayers();
         int onlinePlayers = Bukkit.getOnlinePlayers().size();
         if(!hasReserved(uuid)){
@@ -95,7 +95,7 @@ public class Queue {
         }
         return maxPlayers-onlinePlayers;
     }
-    public static int getEstimation(String uuid){
+    public static int getEstimation(UUID uuid){
         return getPos(uuid)* COOLDOWN_MINUTES;
     }
 }

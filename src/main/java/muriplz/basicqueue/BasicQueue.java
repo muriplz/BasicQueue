@@ -13,12 +13,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.util.Iterator;
+import java.util.UUID;
 
 import static muriplz.basicqueue.queue.Queue.COOLDOWN_MINUTES;
+import static org.bukkit.Bukkit.getPluginManager;
 
 public class BasicQueue extends JavaPlugin{
 
-    public static ListOrderedMap<String,Long> queue;
+    public static ListOrderedMap<UUID,Long> queue;
 
     private final String locale = getConfig().getString("locale");
 
@@ -40,8 +42,8 @@ public class BasicQueue extends JavaPlugin{
         loadConfig();
         loadMessages();
 
-        Bukkit.getServer().getPluginManager().registerEvents(new onQueueJoin(),this);
-        Bukkit.getServer().getPluginManager().registerEvents(new onServerLeave(),this);
+        getPluginManager().registerEvents(new onQueueJoin(),this);
+        getPluginManager().registerEvents(new onServerLeave(),this);
 
         removeExceededPlayers();
 
@@ -101,7 +103,7 @@ public class BasicQueue extends JavaPlugin{
             @Override
             public void run() {
                 if(!queue.isEmpty()){
-                    Iterator<String> it = queue.keySet().iterator();
+                    Iterator<UUID> it = queue.keySet().iterator();
                     long timeStampMustBeMore = System.currentTimeMillis() - (COOLDOWN_MINUTES *60*1000L);
                     while (it.hasNext())
                     {

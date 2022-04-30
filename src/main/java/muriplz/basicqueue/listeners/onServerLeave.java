@@ -21,9 +21,9 @@ public class onServerLeave implements Listener {
             return;
         }
         if(leavingSlotPriority){
-            queue.put(prioritySize() + 1 , p.getUniqueId().toString() , System.currentTimeMillis());
+            queue.put(prioritySize() + 1 , p.getUniqueId() , System.currentTimeMillis());
         }else{
-            queue.put(queue.size() + 1 , p.getUniqueId().toString() , System.currentTimeMillis());
+            queue.put(queue.size() + 1 , p.getUniqueId() , System.currentTimeMillis());
         }
     }
 }

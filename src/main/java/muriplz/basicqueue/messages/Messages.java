@@ -5,6 +5,7 @@ import muriplz.basicqueue.queue.Queue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Messages {
     public static List<String> getMessages(){
@@ -14,7 +15,7 @@ public class Messages {
         paths.add("estimation");
         return paths;
     }
-    public static String get(String path,String uuid){
+    public static String get(String path, UUID uuid){
         String temp = "";
         for(String message : getMessages()){
             if(message.equals(path)){
