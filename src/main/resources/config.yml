@@ -1,0 +1,23 @@
+###############################################################################
+#                             -<( BasicQueue )>-                              #
+#                               Made by muriplz                               #
+#                                                                             #
+###############################################################################
+#                                                                             #
+# Github - https://github.com/muriplz/BasicQueue                              #
+# Spigot - https://www.spigotmc.org/resources/basicqueue.101072/              #
+###############################################################################
+
+# Select language. Available are downloaded upon plugin load
+# If you want to translate your own, you can create a new file and set here the name of that new file
+locale: en_en
+
+# Set the time in minutes after which a player is removed from the queue if he/she does not reconnect
+queue-cooldown: 3
+
+# Set the amount of reserved slots for the queue.
+# Having queue.reservedslot permissions lets you use slots that can't be used by default
+reserved-slots: 0
+
+# If on true, players leaving with queue.saveleavingslot permission will join the queue with priority
+leaving-slot-priority: true
