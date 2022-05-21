@@ -54,7 +54,7 @@ public class Queue {
         Long millis = System.currentTimeMillis();
         if(!queue.containsKey(uuid)){
             if(hasPriority(uuid)){
-                queue.put(prioritySize() + 1 , uuid , millis);
+                queue.put(prioritySize() , uuid , millis);
             }else{
                 queue.put(uuid,millis);
             }
