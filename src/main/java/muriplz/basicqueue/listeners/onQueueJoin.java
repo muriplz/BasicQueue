@@ -2,10 +2,12 @@ package muriplz.basicqueue.listeners;
 
 import muriplz.basicqueue.messages.Messages;
 import muriplz.basicqueue.queue.Queue;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 import java.util.UUID;
@@ -15,59 +17,48 @@ public class onQueueJoin implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin( PlayerLoginEvent e ){
 
-        Player p = e.getPlayer();
-        UUID uuid = p.getUniqueId();
+        String name = e.getPlayer().getName();
 
-        String addedMessage = Messages.get("added", uuid);
-        String defaultMessage = Messages.get("default", uuid);
+        String addedMessage = Messages.get("added", name);
+        String defaultMessage = Messages.get("default", name);
 
         if(Queue.IS_ESTIMATION_ENABLED){
-            addedMessage = addedMessage.concat("\n"+Messages.get("estimation",uuid));
-            defaultMessage = defaultMessage.concat("\n"+Messages.get("estimation",uuid));
-        }
-        // Essentials compatibility
-        if( p.hasPermission("essentials.joinfullserver") ) {
-            Queue.delete(uuid);
-            return;
+            addedMessage = addedMessage.concat("\n"+Messages.get("estimation",name));
+            defaultMessage = defaultMessage.concat("\n"+Messages.get("estimation",name));
         }
 
-        if( e.getResult() == PlayerLoginEvent.Result.KICK_OTHER || e.getResult() == PlayerLoginEvent.Result.KICK_BANNED || e.getResult() == PlayerLoginEvent.Result.KICK_WHITELIST){
-            return;
-        }
+        if( Queue.isEmpty() ){
 
-        if( e.getResult() == PlayerLoginEvent.Result.KICK_FULL ){
-            if( Queue.hasPlayer(uuid) ){
-                e.setKickMessage(defaultMessage);
-                Queue.resetCooldown(uuid);
-            }else{
-                Queue.add(uuid);
-                e.setKickMessage(addedMessage);
+            if( !Queue.hasRoomInsideServer(name) ){
+
+                Queue.add(name);
+                e.disallow(PlayerLoginEvent.Result.KICK_OTHER,addedMessage);
+                return;
             }
-            return;
+
         }
-        if( !Queue.isEmpty() ){
-            if(Queue.hasRoomInsideServer()){
-                if( !Queue.canJoin(uuid) ){
-                    p.kickPlayer(defaultMessage);
-                    Queue.resetCooldown(uuid);
-                }else{
-                    Queue.delete(uuid);
-                }
+
+        if(Queue.hasRoomInsideServer(name)){
+
+            if( !Queue.canJoin(name) ){
+                e.disallow(PlayerLoginEvent.Result.KICK_OTHER,addedMessage);
+                Queue.resetCooldown(name);
             }else{
-                if( !Queue.hasPlayer(uuid) ){
-                    Queue.add(uuid);
-                    p.kickPlayer(addedMessage);
-                }else{
-                    p.kickPlayer(defaultMessage);
-                    Queue.resetCooldown(uuid);
-                }
+                Queue.delete(name);
             }
         }else{
-            if( !Queue.hasRoomInsideServer() ){
-                Queue.add(uuid);
-                p.kickPlayer(addedMessage);
+
+            if( !Queue.hasPlayer(name) ){
+                Queue.add(name);
+                e.disallow(PlayerLoginEvent.Result.KICK_OTHER,addedMessage);
+
+            }else{
+                e.disallow(PlayerLoginEvent.Result.KICK_OTHER,defaultMessage);
+
+                Queue.resetCooldown(name);
             }
         }
+
     }
 }
 

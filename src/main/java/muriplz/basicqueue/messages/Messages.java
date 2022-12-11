@@ -15,14 +15,14 @@ public class Messages {
         paths.add("estimation");
         return paths;
     }
-    public static String get(String path, UUID uuid){
+    public static String get(String path, String name){
         String temp = "";
         for(String message : getMessages()){
             if(message.equals(path)){
-                temp = BasicQueue.getMessage(message).replace("%QUEUEPOS%", Queue.getPos(uuid)+"");
+                temp = BasicQueue.getMessage(message).replace("%QUEUEPOS%", Queue.getPos(name)+"");
                 temp = temp.replace("%COOLDOWNMINUTES%",Queue.COOLDOWN_MINUTES +"");
                 temp = temp.replace("%QUEUESIZE%",Queue.getSize()+"");
-                return temp.replace("%ESTIMATION%",Queue.getEstimation(uuid)+"");
+                return temp.replace("%ESTIMATION%",Queue.getEstimation(name)+"");
             }
         }
         return "Error 45nG7!";

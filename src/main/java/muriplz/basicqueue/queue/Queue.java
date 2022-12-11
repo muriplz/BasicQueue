@@ -2,14 +2,19 @@ package muriplz.basicqueue.queue;
 
 import muriplz.basicqueue.BasicQueue;
 import muriplz.basicqueue.permissions.Permissions;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.model.user.User;
 import org.apache.commons.collections4.map.ListOrderedMap;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+import static muriplz.basicqueue.BasicQueue.api;
+
 public class Queue {
-    public static ListOrderedMap<UUID,Long> queue = BasicQueue.queue;
+    public static ListOrderedMap<String,Long> queue = BasicQueue.queue;
 
     public static boolean IS_ESTIMATION_ENABLED = BasicQueue.getInstance().getConfig().getBoolean("estimated-time");
 
@@ -22,7 +27,7 @@ public class Queue {
     public static int prioritySize(){
         int i=0;
         if(isEmpty()){
-            return 0;
+            return 1;
         }
         do{
             if(!Queue.hasPriority(queue.get(i))){
@@ -33,69 +38,74 @@ public class Queue {
         }while (i<queue.size());
         return i;
     }
-    public static boolean hasReserved(UUID uuid){
-        Player p = Bukkit.getPlayer(uuid);
-        if(p==null) return false;
-        return p.hasPermission(Permissions.reservedSlot);
+    public static boolean hasReserved(String name){
+        User user = api.getUserManager().getUser(name);
+        if(user==null) return false;
+        return user.getCachedData().getPermissionData().checkPermission(Permissions.reservedSlot).asBoolean();
     }
-    public static boolean hasPriority(UUID uuid){
-        Player p = Bukkit.getPlayer(uuid);
-        if(p==null) return false;
-        return p.hasPermission(Permissions.queuePriority);
+    public static boolean hasPriority(String name){
+        User user = api.getUserManager().getUser(name);
+        if(user==null) return false;
+        return user.getCachedData().getPermissionData().checkPermission(Permissions.queuePriority).asBoolean();
     }
-    public static boolean hasRoomInsideServer(){
-        return Bukkit.getMaxPlayers()>(Bukkit.getOnlinePlayers().size()-1);
+    public static boolean hasRoomInsideServer(String name){
+
+        if(hasReserved(name)){
+
+            return Bukkit.getMaxPlayers()>(Bukkit.getOnlinePlayers().size()-1);
+        }
+
+        return Bukkit.getMaxPlayers()>(Bukkit.getOnlinePlayers().size()-1)+RESERVED_SLOTS;
     }
-    public static boolean hasPlayer(UUID uuid){
-        return queue.containsKey(uuid);
+    public static boolean hasPlayer(String name){
+        return queue.containsKey(name);
     }
 
-    public static void add(UUID uuid){
+    public static void add(String name){
         Long millis = System.currentTimeMillis();
-        if(!queue.containsKey(uuid)){
-            if(hasPriority(uuid)){
-                queue.put(prioritySize() , uuid , millis);
+        if(!queue.containsKey(name)){
+            if(hasPriority(name)){
+                queue.put(prioritySize() , name , millis);
             }else{
-                queue.put(uuid,millis);
+                queue.put(name,millis);
             }
         }
     }
-    public static void delete(UUID uuid){
-        queue.remove(uuid);
+    public static void delete(String name){
+        queue.remove(name);
     }
 
-    public static void resetCooldown(UUID uuid){
-        queue.replace(uuid,System.currentTimeMillis());
+    public static void resetCooldown(String name){
+        queue.replace(name,System.currentTimeMillis());
     }
     public static boolean isEmpty(){
         return queue.isEmpty();
     }
-    public static int getPos(UUID uuid){
-        if(!queue.containsKey(uuid)||isEmpty()){
-            return 0;
+    public static int getPos(String name){
+        if(!queue.containsKey(name)||isEmpty()){
+            return 1;
         }
         int i=0;
-        for(UUID id : queue.keySet()){
+        for(String n : queue.keySet()){
             i++;
-            if(id.equals(uuid)){
+            if(n.equals(name)){
                 break;
             }
         }
         return i;
     }
-    public static boolean canJoin(UUID uuid){
-        return getRoomOnServer(uuid) > getPos(uuid);
+    public static boolean canJoin(String name){
+        return getRoomOnServer(name) >= getPos(name);
     }
-    public static int getRoomOnServer(UUID uuid){
-        Player p = Bukkit.getPlayer(uuid);
+    public static int getRoomOnServer(String name){
         int maxPlayers = Bukkit.getMaxPlayers();
         int onlinePlayers = Bukkit.getOnlinePlayers().size();
-        if(!hasReserved(uuid)){
-            maxPlayers-= RESERVED_SLOTS;
+        if(!hasReserved(name)){
+            maxPlayers-=RESERVED_SLOTS;
         }
         return maxPlayers-onlinePlayers;
     }
-    public static int getEstimation(UUID uuid){
-        return getPos(uuid)* COOLDOWN_MINUTES;
+    public static int getEstimation(String name){
+        return getPos(name)* COOLDOWN_MINUTES;
     }
 }

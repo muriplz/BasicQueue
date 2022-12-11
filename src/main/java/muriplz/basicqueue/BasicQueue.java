@@ -2,12 +2,15 @@ package muriplz.basicqueue;
 
 import io.github.thatsmusic99.configurationmaster.CMFile;
 import muriplz.basicqueue.listeners.onQueueJoin;
+import muriplz.basicqueue.listeners.onQueueWhileFull;
 import muriplz.basicqueue.listeners.onServerLeave;
+import net.luckperms.api.LuckPerms;
 import org.apache.commons.collections4.map.ListOrderedMap;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -20,7 +23,7 @@ import static org.bukkit.Bukkit.getPluginManager;
 
 public class BasicQueue extends JavaPlugin{
 
-    public static ListOrderedMap<UUID,Long> queue;
+    public static ListOrderedMap<String,Long> queue;
 
     private final String locale = getConfig().getString("locale");
 
@@ -33,6 +36,7 @@ public class BasicQueue extends JavaPlugin{
 
     public static BasicQueue instance;
 
+    public static LuckPerms api;
 
     @Override
     public void onEnable(){
@@ -42,6 +46,12 @@ public class BasicQueue extends JavaPlugin{
         loadConfig();
         loadMessages();
 
+        RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+        if (provider != null) {
+            api = provider.getProvider();
+        }
+
+        getPluginManager().registerEvents(new onQueueWhileFull(),this);
         getPluginManager().registerEvents(new onQueueJoin(),this);
         getPluginManager().registerEvents(new onServerLeave(),this);
 
@@ -103,7 +113,7 @@ public class BasicQueue extends JavaPlugin{
             @Override
             public void run() {
                 if(!queue.isEmpty()){
-                    Iterator<UUID> it = queue.keySet().iterator();
+                    Iterator<String> it = queue.keySet().iterator();
                     long timeStampMustBeMore = System.currentTimeMillis() - (COOLDOWN_MINUTES *60*1000L);
                     while (it.hasNext())
                     {

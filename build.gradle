@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'org.example'
-version '1.0-DEV17'
+version '1.2'
 
 compileJava.options.encoding = 'UTF-8'
 
@@ -44,6 +44,7 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
     implementation 'com.github.thatsmusic99:ConfigurationMaster:v1.0.3'
     implementation 'org.apache.commons:commons-collections4:4.4'
+    compileOnly 'net.luckperms:api:5.4'
 
 }
 
