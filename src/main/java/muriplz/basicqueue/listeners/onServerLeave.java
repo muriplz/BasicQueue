@@ -15,15 +15,15 @@ public class onServerLeave implements Listener {
     public static boolean leavingSlotPriority = BasicQueue.getInstance().getConfig().getBoolean("leaving-slot-priority");
     @EventHandler
     public void onLeave(PlayerQuitEvent e){
-    //    Player p = e.getPlayer();
-//
-    //    if(!p.hasPermission(Permissions.saveLeavingSlot)){
-    //        return;
-    //    }
-    //    if(leavingSlotPriority){
-    //        queue.put(prioritySize() , p.getName() , System.currentTimeMillis());
-    //    }else{
-    //        queue.put( p.getName() , System.currentTimeMillis());
-    //    }
+        Player p = e.getPlayer();
+
+        if(!p.hasPermission(Permissions.saveLeavingSlot)){
+            return;
+        }
+        if(leavingSlotPriority){
+            queue.put(prioritySize() , p.getName() , System.currentTimeMillis());
+        }else{
+            queue.put( p.getName() , System.currentTimeMillis());
+        }
     }
 }
