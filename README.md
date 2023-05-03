@@ -5,7 +5,7 @@
 	<a href="https://discord.gg/WZ6TjrqpXD"><img src="https://img.shields.io/discord/929394649884405761?color=5865f2&label=Discord&style=flat" alt="Discord"></a></h1>
 
 # Disclaimer:
-This plugin has been **entirely** made by kpg_tb, a Fiverr developer. He/She gave me permission to make the source code public. This is his Fiverr page: https://es.fiverr.com/kpg_tb
+This plugin has been **entirely** made by kpg_tb, a Fiverr developer. He/She gave me permission to make the source code public. This is his Fiverr page: https://fiverr.com/kpg_tb
 Definetly a great Spigot Plugin developer!
 # Plugin Description:
 When the server is full (not having in mind reserved slots), you will join the queue when trying to log in. You will get a position and you must reconnect within some amount of minutes to keep your position. If the available slots are higher or equals to your queue position, you will join the server the next time you try to log in.
