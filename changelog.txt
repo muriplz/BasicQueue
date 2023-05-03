@@ -1,6 +1,0 @@
-- Added support for 1.12-1.18
-- added permission queue.saveleavingslot to save for 3 minutes the slot for a player that just left (in case they crash or whatever)
-
-1.0-DEV6
-- Improved joining of players that can already join. You don't need to be first. i.e: if you are in position 3 and the server has 4 free slots, you can get into the server the next time you reconnect
-- Fixed startup bug

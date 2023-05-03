@@ -1,0 +1,5 @@
+kickMessage:
+  - "<red>You are in the queue, your position is <position> out of <size>"
+  - "<red>Reconnect within 3 minutes to keep your position"
+  - ""
+  - "<gold>Type: <yellow><priority>"

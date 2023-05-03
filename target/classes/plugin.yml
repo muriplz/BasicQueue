@@ -1,5 +1,5 @@
 name: Queue
-version: '${project.version}'
+version: '1.0.0-SNAPSHOT'
 main: pl.kpgtb.queue.Queue
 api-version: 1.18
 depend: [Ktools]
